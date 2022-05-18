@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from './views/Dashboard.vue'
+import AdminMaterial from './views/Material/AdminMaterial.vue'
 import Auth from './views/Auth.vue'
 
 
@@ -23,6 +24,21 @@ const routes = [
 
     // }
   },
+
+  {
+    path: '/admin/material/add',
+    name: 'material',
+    component: AdminMaterial,
+    // beforeResolve: (to, from, next) => {
+    //     if (!auth.authenticated()) {
+    //         next('/login', () => {})
+    //     } else {
+    //         next();
+    //     }
+
+    // }
+  },
+
   { path: '/login', name: 'login', component: Auth },
   // {
   //   path: '/logout',
