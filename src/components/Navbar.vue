@@ -1,6 +1,6 @@
 <template>
     <div class="center examplex">
-      <vs-navbar square center-collapsed v-model="active" style="padding: 10px 15px;">
+      <vs-navbar square center-collapsed v-model=active style="padding: 10px 15px;">
         <template #left>
           <vs-button @click="toggleMenu" flat icon>
             <i class='bx bx-menu'></i>
@@ -28,6 +28,7 @@
 
 <script>
 export default {
+    props: ['active'],
     name: "NavBar",
     methods: {
         toggleMenu() {
