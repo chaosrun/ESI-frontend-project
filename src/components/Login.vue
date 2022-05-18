@@ -80,14 +80,11 @@
           const email = e.target.email.value;
           const password =  e.target.password.value;
           const token = btoa(email+":"+password);
-          console.log(email);
-          console.log(token);
           axios.get(`${process.env.VUE_APP_API_BASE_URL}/auth`, { 
               headers: { 'Authorization': 'Basic '+ token }
             })
           
           .then(response => {
-            console.log(response.data);
             this.user.id = response.data.id;
             this.user.name = response.data.name;
             this.user.email = response.data.email;
@@ -96,8 +93,11 @@
             this.user.authenticated = true;
             this.user.token = token;
             window.localStorage.setItem('user', this.user);
-
-            this.$router.push({path: '/dashboard'})
+            if(this.user.role == 'ADMIN'){
+              this.$router.push({name: 'dashboard'})
+            }else{
+              this.$router.push({path: 'user/dashboard'})
+            }
           })
           .catch(error => {
             console.log(error);

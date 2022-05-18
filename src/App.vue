@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import SideNav from './components/SideNav.vue'
-import Navbar from './components/Navbar.vue'
+import SideNav from './components/SideNav.vue';
+import Navbar from './components/Navbar.vue';
 export default {
   name: 'App',
   data: function() {

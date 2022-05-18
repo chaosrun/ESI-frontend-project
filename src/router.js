@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Dashboard from './views/Dashboard.vue';
+import UserDashboard from './views/UserDashboard.vue'
 import Auth from './views/Auth.vue';
 
 
@@ -20,6 +21,11 @@ const routes = [
     component: Dashboard
   },
   {
+    path: '/user/dashboard',
+    name: 'userDashboard',
+    component: UserDashboard
+  },
+  {
     path: '/logout',
     name: 'logout',
     component: Auth
@@ -28,7 +34,6 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.VUE_APP_BASE_URL,
   routes,
 });
 

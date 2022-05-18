@@ -5,8 +5,8 @@
         textWhite
         :open.sync="menuOpen"
         absolute
-        v-model="active"
-        square="true"
+        v-model=active
+        square=true
         >
         <template #logo>
           <h4>Company's name</h4>
