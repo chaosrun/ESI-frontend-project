@@ -57,10 +57,14 @@ import SalesSummary from '../components/dashboard/SalesSummary.vue';
 import SalesIncome from '../components/dashboard/SalesIncome.vue';
 import TopProducts from '../components/dashboard/TopProducts.vue';
 import States from '../components/dashboard/States.vue';
+
+const user = localStorage.getItem('user');
+console.log(user);
 export default {
   name: 'Dashboard',
   data: function() {
     return {
+      currentUser: user
     }
   },
   components: {
@@ -68,6 +72,11 @@ export default {
     SalesIncome,
     TopProducts,
     States
+  },
+  created(){
+    if(!this.currentUser.user.authenticated){
+      this.$router.push({name: 'login'})
+    }
   },
   methods: {
   }

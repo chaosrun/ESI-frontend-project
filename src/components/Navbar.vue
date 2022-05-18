@@ -7,7 +7,7 @@
           </vs-button>
         </template>
         <template #right>
-          <vs-button flat >Logout</vs-button>
+          <vs-button flat @click="handleLogout">Logout</vs-button>
            <vs-avatar>
                 <img src="../assets/images/user-36-02.jpg" alt="">
             </vs-avatar>
@@ -32,6 +32,10 @@ export default {
     methods: {
         toggleMenu() {
             this.$emit('toggle-menu');
+        },
+        handleLogout(){
+          localStorage.removeItem('user');
+          this.$router.push({name: 'login'});
         }
     }
 }
