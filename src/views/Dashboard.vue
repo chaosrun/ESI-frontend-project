@@ -80,7 +80,7 @@ export default {
     States
   },
   created(){
-    if(!localStorage.getItem('userName').authenticated){
+    if(!authenticated){
       this.$router.push({name: 'login'})
     }
   },

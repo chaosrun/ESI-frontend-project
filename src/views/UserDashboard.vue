@@ -33,9 +33,9 @@ export default {
   components: {
   },
   created(){
-    // if(!localStorage.getItem("user").authenticated){
-    //   this.$router.push({name: 'login'})
-    // }
+     if(!authenticated){
+      this.$router.push({name: 'login'})
+    }
   },
   methods: {
     
