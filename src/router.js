@@ -7,8 +7,6 @@ import Auth from './views/Auth.vue';
 
 Vue.use(VueRouter);
 
-
-
 const routes = [
   {
     path: '/',
@@ -18,12 +16,16 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard
-  },
-  {
-    path: '/user/dashboard',
-    name: 'userDashboard',
-    component: UserDashboard
+    component: {
+      render: (h) => {
+        switch (localStorage.userRole) {
+          case "BORROWER":
+            return h(UserDashboard);
+          default:
+            return h(Dashboard);
+        }
+      }
+    }
   },
   {
     path: '/logout',

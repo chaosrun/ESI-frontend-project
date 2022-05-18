@@ -92,12 +92,12 @@
             this.user.library = response.data.library;
             this.user.authenticated = true;
             this.user.token = token;
-            window.localStorage.setItem('user', this.user);
-            if(this.user.role == 'ADMIN'){
-              this.$router.push({name: 'dashboard'})
-            }else{
-              this.$router.push({path: 'user/dashboard'})
-            }
+            window.localStorage.setItem("userName",this.user.name);
+            window.localStorage.setItem("userEmail", this.user.email);
+            window.localStorage.setItem("userRole", this.user.role);
+            window.localStorage.setItem("authenticated", this.user.authenticated);
+            this.$router.push({name: 'dashboard'})
+            
           })
           .catch(error => {
             console.log(error);
