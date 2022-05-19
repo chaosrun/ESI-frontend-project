@@ -23,11 +23,11 @@
           </template>
           Materials
         </vs-sidebar-item>
-        <vs-sidebar-item id="Music">
+        <vs-sidebar-item v-if="user.role === 'LIBRARIAN'" id="borrowers" to="/borrowers">
           <template #icon>
-            <i class='bx bxs-music'></i>
+            <i class='bx bx-male-female'></i>
           </template>
-          Music
+          Borrowers
         </vs-sidebar-item>
         <vs-sidebar-item id="donate">
           <template #icon>
@@ -76,8 +76,11 @@
 export default {
   props: ['menuOpen'],
   data: () => {
+    const currentUser = JSON.parse(window.localStorage.getItem('user'));
+
     return {
-      active: "home"
+      active: "home",
+      user: currentUser
     }
   },
   methods: {
