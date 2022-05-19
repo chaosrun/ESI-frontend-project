@@ -60,7 +60,8 @@ export default {
     },
     getBorrowers() {
       const token = window.localStorage.getItem("user-token")
-      
+      const loading = this.$vs.loading();
+
       axios
         .get(`${process.env.VUE_APP_API_BASE_URL}/users/role/BORROWER`, {
           headers: {
@@ -77,6 +78,8 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      
+      loading.close();
     },
   },
   mounted() {
