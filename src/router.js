@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Dashboard from './views/Dashboard.vue';
+import AdminDashboard from './views/AdminDashboard.vue';
 import UserDashboard from './views/UserDashboard.vue'
 import Auth from './views/Auth.vue';
 import CreateMaterial from './views/Material/CreateMaterial.vue'
@@ -53,7 +53,7 @@ const routes = [
   {
     path: '/admin/dashboard',
     name: 'admin-dashboard',
-    component: Dashboard,
+    component: AdminDashboard,
     beforeEnter: adminRouteAuthentication
   },
   {

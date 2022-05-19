@@ -10,18 +10,25 @@
         </h1>
       </div>
     </div>
+    <RetrieveUser :user_id="id" />
   </div>  
 </template>
 
 <script>
+import RetrieveUser from "../components/User/RetrieveUser.vue";
+
 export default {
   name: 'UserDashboard',
   data: function() {
+    const currentUser = JSON.parse(window.localStorage.getItem("user"));
+
     return {
       username: window.localStorage.getItem('username'),
+      id: currentUser.id
     }
   },
   components: {
+    RetrieveUser,
   },
   methods: {
     
