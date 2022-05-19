@@ -23,7 +23,7 @@
           </template>
           Materials
         </vs-sidebar-item>
-        <vs-sidebar-item id="borrowers" to="/borrowers">
+        <vs-sidebar-item v-if="user.role === 'LIBRARIAN'" id="borrowers" to="/borrowers">
           <template #icon>
             <i class='bx bx-male-female'></i>
           </template>
