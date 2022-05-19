@@ -92,11 +92,12 @@
             this.user.library = response.data.library;
             this.user.authenticated = true;
             this.user.token = token;
-            window.localStorage.setItem('user', this.user);
-            if(this.user.role == 'ADMIN'){
-              this.$router.push({name: 'dashboard'})
+            window.localStorage.setItem('user', JSON.stringify(this.user));
+            window.localStorage.setItem('user-token', token);
+            if(this.user.role === process.env.VUE_APP_LIBRARIAN_ROLE){
+              this.$router.push({name: 'admin-dashboard'})
             }else{
-              this.$router.push({path: 'user/dashboard'})
+              this.$router.push({name: 'user-dashboard'})
             }
           })
           .catch(error => {

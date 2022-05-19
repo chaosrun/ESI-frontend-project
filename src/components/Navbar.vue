@@ -35,7 +35,7 @@ export default {
             this.$emit('toggle-menu');
         },
         handleLogout(){
-          localStorage.removeItem('user');
+          window.localStorage.removeItem('user');
           this.$router.push({name: 'login'});
         }
     }

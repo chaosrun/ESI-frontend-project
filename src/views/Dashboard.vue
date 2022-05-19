@@ -6,9 +6,9 @@
       </div>
       <div class="relative">
         <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">
-          Good afternoon, Acme Inc. 👋
+          Good day, Librarian. 👋
         </h1>
-        <p>Here is what’s happening with your projects today:</p>
+        <p>Here is what’s happening with your library today:</p>
       </div>
     </div>
     <States/>

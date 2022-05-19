@@ -17,7 +17,7 @@
           </template>
           Home
         </vs-sidebar-item>
-        <vs-sidebar-item id="market" to="/material">
+        <vs-sidebar-item id="market" to="/materials">
           <template #icon>
             <i class='bx bx-grid-alt'></i>
           </template>
