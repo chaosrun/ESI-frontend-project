@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Auth from '../views/Auth.vue';
+import Login from '../components/Login.vue';
 import CreateMaterial from '../views/Material/CreateMaterial.vue'
 import Dashboard from '../views/Dashboard.vue';
 import MaterialCatalog from '../views/Material/MaterialCatalog.vue'
@@ -35,7 +35,7 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: Auth,
+    component: Login,
     beforeEnter: (to, from, next) => {
       const userInformation = getUserInformation();
       if (userInformation?.authenticated && userInformation?.role === process.env.VUE_APP_LIBRARIAN_ROLE) {
@@ -64,7 +64,7 @@ const routes = [
   {
     path: '/logout',
     name: 'logout',
-    component: Auth
+    component: Login
   },
   {
     path: '/materials',
@@ -87,7 +87,7 @@ const routes = [
   {
     path: '/logout',
     name: 'logout',
-    component: Auth,
+    component: Login,
     beforeEnter: (to, from, next) => {
       window.localStorage.removeItem('user')
       next({ path: '/login' });
