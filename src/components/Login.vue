@@ -94,6 +94,7 @@
             this.user.token = token;
             window.localStorage.setItem('user', JSON.stringify(this.user));
             window.localStorage.setItem('user-token', token);
+            window.localStorage.setItem("username", this.user.name);
             if(this.user.role === process.env.VUE_APP_LIBRARIAN_ROLE){
               this.$router.push({name: 'admin-dashboard'})
             }else{

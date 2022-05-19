@@ -6,7 +6,7 @@
       </div>
       <div class="relative">
         <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">
-          Good day, Librarian. 👋
+          Good day, {{username}} 👋
         </h1>
         <p>Here is what’s happening with your library today:</p>
       </div>
@@ -58,12 +58,12 @@ import SalesIncome from '../components/dashboard/SalesIncome.vue';
 import TopProducts from '../components/dashboard/TopProducts.vue';
 import States from '../components/dashboard/States.vue';
 
-const user = localStorage.getItem('user');
+const username = window.localStorage.getItem('username');
 export default {
   name: 'Dashboard',
   data: function() {
     return {
-      currentUser: user
+      username: username,
     }
   },
   components: {
@@ -71,11 +71,6 @@ export default {
     SalesIncome,
     TopProducts,
     States
-  },
-  created(){
-    if(!this.currentUser.user.authenticated){
-      this.$router.push({name: 'login'})
-    }
   },
   methods: {
   }
