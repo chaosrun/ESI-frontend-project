@@ -1,43 +1,100 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Dashboard from './views/Dashboard.vue'
-import Auth from './views/Auth.vue'
-
+import Dashboard from './views/Dashboard.vue';
+import UserDashboard from './views/UserDashboard.vue'
+import Auth from './views/Auth.vue';
+import CreateMaterial from './views/Material/CreateMaterial.vue'
+import MaterialCatalog from './views/Material/MaterialCatalog.vue'
 
 Vue.use(VueRouter);
+const getUserInformation = () => {
+  return JSON.parse(window.localStorage.getItem('user'));
+}
 
+const adminRouteAuthentication = (to, from, next) => {
+  const userInformation = getUserInformation();
+  if (!userInformation?.authenticated || userInformation?.role !== process.env.VUE_APP_LIBRARIAN_ROLE) {
+    next({ name: 'login' })
+  } else {
+    next();
+  }
 
+}
+
+const userRouteAuthentication = (to, from, next) => {
+  const userInformation = getUserInformation();
+  if (!userInformation?.authenticated) {
+    next({ name: 'login' })
+  } else {
+    next();
+  }
+}
 
 const routes = [
-
   {
     path: '/',
-    name: 'dashboard',
-    component: Dashboard,
-    // beforeResolve: (to, from, next) => {
-    //     if (!auth.authenticated()) {
-    //         next('/login', () => {})
-    //     } else {
-    //         next();
-    //     }
+    name: 'login',
+    component: Auth,
+    beforeEnter: (to, from, next) => {
+      const userInformation = getUserInformation();
+      if (userInformation?.authenticated && userInformation?.role === process.env.VUE_APP_LIBRARIAN_ROLE) {
+        next({ name: 'admin-dashboard' })
+      } else if (userInformation?.authenticated) {
+        next({ name: 'user-dashboard' })
+      }
+      else {
+        next();
+      }
 
-    // }
+    }
   },
-  { path: '/login', name: 'login', component: Auth },
-  // {
-  //   path: '/logout',
-  //   name: 'logout',
-  //   component: Auth,
-  //   // beforeEnter: (to, from, next) => {
-  //   //     auth.logout();
-  //   //     next({ path: '/login' });
-  //   // }
-  // },
+  {
+    path: '/admin/dashboard',
+    name: 'admin-dashboard',
+    component: Dashboard,
+    beforeEnter: adminRouteAuthentication
+  },
+  {
+    path: '/user/dashboard',
+    name: 'user-dashboard',
+    component: UserDashboard,
+    beforeEnter: userRouteAuthentication
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Auth
+  },
+  {
+    path: '/materials',
+    name: 'materials',
+    component: MaterialCatalog,
+    beforeEnter: userRouteAuthentication
+  },
+  {
+    path: '/catalog',
+    name: 'catalog',
+    component: MaterialCatalog,
+    beforeEnter: userRouteAuthentication
+  },
+  {
+    path: '/material/add',
+    name: 'add-material',
+    component: CreateMaterial,
+    beforeEnter: adminRouteAuthentication
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Auth,
+    beforeEnter: (to, from, next) => {
+      window.localStorage.removeItem('user')
+      next({ path: '/login' });
+    }
+  },
 ];
-
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
   routes,
 });
 

@@ -6,72 +6,25 @@
       </div>
       <div class="relative">
         <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">
-          Good day, {{username}} 👋
+          Good afternoon, {{username}} 👋
         </h1>
-        <p>Here is what’s happening with your library today:</p>
       </div>
     </div>
-    <States/>
-  <vs-row>
-      <vs-col w="12" class="py-4" code-toggler>
-        <vs-card>
-          <template #title>
-            <h4>
-              Sales Summary
-            </h4>
-          </template>
-          <template #text>
-            <SalesSummary/>
-          </template>
-        </vs-card>
-      </vs-col>
-      <vs-col w="12" class="py-4">
-        <vs-card class="cardx">
-          <template #title>
-            <h4>
-              Sales Income 
-            </h4>
-          </template>
-          <template #text>
-            <SalesIncome/>
-          </template>
-        </vs-card>
-
-      </vs-col>
-      <vs-col w="12" class="py-4">
-        <vs-card>
-          <template #title>
-            <h4>Top Selling Products</h4>
-          </template>
-           <template #text>
-            <TopProducts />
-          </template>
-        </vs-card>
-      </vs-col>
-    </vs-row>
   </div>  
 </template>
 
 <script>
-import SalesSummary from '../components/dashboard/SalesSummary.vue';
-import SalesIncome from '../components/dashboard/SalesIncome.vue';
-import TopProducts from '../components/dashboard/TopProducts.vue';
-import States from '../components/dashboard/States.vue';
-
 export default {
-  name: 'Dashboard',
+  name: 'UserDashboard',
   data: function() {
     return {
       username: window.localStorage.getItem('username'),
     }
   },
   components: {
-    SalesSummary,
-    SalesIncome,
-    TopProducts,
-    States
   },
   methods: {
+    
   }
 }
 </script>

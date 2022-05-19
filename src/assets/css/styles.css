@@ -5,3 +5,6 @@ body {
     max-width: 100%;
     padding: 2rem;
 }
+.vs-table__header, .vs-table__footer {
+    background-color: white;
+}
