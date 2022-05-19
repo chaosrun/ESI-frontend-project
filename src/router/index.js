@@ -1,12 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Dashboard from './views/Dashboard.vue';
-import UserDashboard from './views/UserDashboard.vue'
-import Auth from './views/Auth.vue';
-import CreateMaterial from './views/Material/CreateMaterial.vue'
-import MaterialCatalog from './views/Material/MaterialCatalog.vue'
+
+import Auth from '../views/Auth.vue';
+import CreateMaterial from '../views/Material/CreateMaterial.vue'
+import Dashboard from '../views/Dashboard.vue';
+import MaterialCatalog from '../views/Material/MaterialCatalog.vue'
+import UserDashboard from '../views/UserDashboard.vue'
 
 Vue.use(VueRouter);
+
 const getUserInformation = () => {
   return JSON.parse(window.localStorage.getItem('user'));
 }
@@ -93,6 +95,7 @@ const routes = [
     }
   },
 ];
+
 const router = new VueRouter({
   mode: "history",
   routes,
