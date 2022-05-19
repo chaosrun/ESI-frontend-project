@@ -20,7 +20,6 @@ const adminRouteAuthentication = (to, from, next) => {
   } else {
     next();
   }
-
 }
 
 const userRouteAuthentication = (to, from, next) => {
