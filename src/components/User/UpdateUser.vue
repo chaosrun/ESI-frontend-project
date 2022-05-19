@@ -58,7 +58,7 @@
               <span style="padding: 15px"></span>
               <button
                 class="btn btn-secondary col-lg-2 d-inline"
-                @click.prevent="loadUser(user_id)"
+                @click="viewUser(user_id)"
               >
                 Cancel
               </button>
@@ -202,13 +202,19 @@ export default {
           const status = error.response.status;
           const data = error.response.data;
 
-            this.$vs.notification({
-              color: "danger",
-              position: "top-right",
-              title: `Error ${status}`,
-              text: data.message,
-            });
+          this.$vs.notification({
+            color: "danger",
+            position: "top-right",
+            title: `Error ${status}`,
+            text: data.message,
+          });
         });
+    },
+    viewUser(id) {
+      this.$router.push({
+        name: "user",
+        params: { action: "view", user_id: id },
+      });
     },
     openLoanRequests(id) {
       this.$router.push({
