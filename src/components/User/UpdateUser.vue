@@ -48,6 +48,19 @@
                 <label for="homeLibraryInput">Home Library</label>
               </div>
             </vs-row>
+            <vs-row justify="center" align="top">
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="passwordInput"
+                  placeholder="profileUser.password"
+                  v-model="passwordInput"
+                  :disabled="currentUser.role !== 'BORROWER'"
+                />
+                <label for="passwordInput">Password</label>
+              </div>
+            </vs-row>
             <vs-row justify="center">
               <button
                 class="btn btn-primary col-lg-2 d-inline"
@@ -138,6 +151,10 @@
 import axios from "axios";
 
 const currentUser = JSON.parse(window.localStorage.getItem("user"));
+const token = window.localStorage.getItem("user-token");
+const headers = {
+  Authorization: "Basic " + token,
+};
 
 export default {
   name: "UpdateUser",
@@ -146,10 +163,10 @@ export default {
     return {
       currentUser: currentUser,
       profileUser: {},
-      token: window.localStorage.getItem("user-token"),
       nameInput: "",
       emailInput: "",
       homeLibraryInput: "",
+      passwordInput: ""
     };
   },
   methods: {
@@ -158,15 +175,14 @@ export default {
 
       axios
         .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {
-          headers: {
-            Authorization: "Basic " + this.token,
-          },
+          headers,
         })
         .then((response) => {
           this.profileUser = response.data;
           this.nameInput = this.profileUser.name;
           this.emailInput = this.profileUser.email;
           this.homeLibraryInput = this.profileUser.homeLibrary;
+          this.passwordInput = this.profileUser.password;
         })
         .catch((error) => {
           console.log(error);
@@ -175,28 +191,31 @@ export default {
       loading.close();
     },
     updateUser(id) {
-      const userDetails = {
-        homeLibrary: this.homeLibraryInput,
-        email: this.emailInput,
-        name: this.nameInput,
-      };
       axios
-        .put(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, userDetails, {
-          headers: { Authorization: "Basic " + this.token },
+        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {
+          headers,
         })
         .then((response) => {
-          console.log(response);
+          const userDetails = response.data;
+          userDetails["name"] = this.nameInput;
+          userDetails["email"] = this.emailInput;
+          userDetails["homeLibrary"] = this.homeLibraryInput;
 
-          this.$vs.notification({
-            color: "success",
-            position: "top-right",
-            title: "Success",
-            text: `${this.nameInput} successfully updated!`,
-          });
-          this.$router.push({
-            name: "user",
-            params: { type: "view", user_id: id },
-          });
+          axios
+            .put(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`,
+              userDetails, {
+              headers
+            })
+            .then((response) => {
+              console.log(response);
+
+              this.$vs.notification({
+                color: "success",
+                position: "top-right",
+                title: "Success",
+                text: `${this.nameInput} successfully updated!`,
+              });
+            });
         })
         .catch((error) => {
           const status = error.response.status;
@@ -211,10 +230,7 @@ export default {
         });
     },
     viewUser(id) {
-      this.$router.push({
-        name: "user",
-        params: { action: "view", user_id: id },
-      });
+      this.$router.push(`/user/view/${id}`);
     },
     openLoanRequests(id) {
       this.$router.push({
