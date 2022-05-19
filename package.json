@@ -16,13 +16,13 @@
     "chart.js": "^2.8.0",
     "console": "^0.7.2",
     "core-js": "^3.6.5",
+    "express": "^4.18.1",
+    "serve-static": "^1.15.0",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.4.2",
     "vue-router": "^3.2.0",
     "vuesax": "^4.0.1-alpha.25",
-    "vuex": "^3.6.2",
-    "express": "^4.18.1",
-    "serve-static": "^1.15.0"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
@@ -31,8 +31,6 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "express": "^4.18.1",
-    "serve-static": "^1.15.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
