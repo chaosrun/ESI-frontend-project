@@ -12,7 +12,9 @@
                 <vs-th>
                     E-mail Address
                 </vs-th>
-
+                <vs-th>
+                    Date Created
+                </vs-th>
                 <vs-th>
                     Actions
                 </vs-th>
@@ -32,6 +34,9 @@
                 </vs-td>
                 <vs-td>
                     {{ tr.email }}
+                </vs-td>
+                <vs-td>
+                    {{ new Date(tr.createdAt).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
                 </vs-td>
                 <vs-td class="row">
                     <vs-button

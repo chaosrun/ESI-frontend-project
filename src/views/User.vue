@@ -6,8 +6,8 @@
     <UpdateUser />
   </div>
   <div v-else-if="user.role == 'LIBRARIAN' && action == 'delete'">
+    <DeleteUser :user_id="id" />
     <RetrieveUser :user_id="id" />
-    <DeleteUser />
   </div>
   <div v-else>
     <CreateUser />

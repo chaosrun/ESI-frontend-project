@@ -18,13 +18,52 @@
             <vs-row>
               <div>Home Library: {{ user.homeLibrary }}</div>
             </vs-row>
+            <vs-row>
+              <div>Created on: {{ new Date(user.createdAt).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</div>
+            </vs-row>
           </template>
         </vs-card>
       </vs-col>
       <vs-col w="7" class="m-5">
         <vs-card>
           <template #text>
-            <h4 class="mb-1">Active Requests</h4>
+            <vs-row>
+              <h4 class="mp-1">Active Requests</h4>
+            </vs-row>
+            <vs-row>
+              <h5 class="p-2">Loan Requests</h5>
+            </vs-row>
+            <vs-row>
+              <div class="m-2">
+                <div v-if="!user.loanRequests.length">
+                  No active loan requests
+                </div>
+                <div
+                  v-else
+                  :key="item"
+                  v-for="(index, item) in user.loanRequests"
+                >
+                  {{ item.key }}
+                </div>
+              </div>
+            </vs-row>
+            <vs-row>
+              <h5 class="p-2">Extension Requests</h5>
+            </vs-row>
+            <vs-row>
+              <div class="m-2">
+                <div v-if="!user.loanRequests.length">
+                  No active extension requests
+                </div>
+                <div
+                  v-else
+                  :key="item"
+                  v-for="(index, item) in user.extensionRequests"
+                >
+                  {{ item.key }}
+                </div>
+              </div>
+            </vs-row>
           </template>
         </vs-card>
       </vs-col>
@@ -49,10 +88,13 @@
             <vs-row>
               <div>Home Library: {{ user.homeLibrary }}</div>
             </vs-row>
+            <vs-row>
+              <div>Created on: {{ new Date(user.createdAt).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</div>
+            </vs-row>
           </template>
         </vs-card>
       </vs-col>
-    </vs-row>  
+    </vs-row>
   </div>
 </template>
 
@@ -62,7 +104,6 @@ import axios from "axios";
 export default {
   name: "RetrieveUser",
   data: function () {
-    console.log(this.user_id);
 
     return {
       user: {},
@@ -82,8 +123,6 @@ export default {
         })
         .then((response) => {
           this.user = response.data;
-
-          console.log(this.user);
         })
         .catch((error) => {
           console.log(error);
