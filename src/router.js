@@ -87,9 +87,13 @@ const routes = [
     beforeEnter: adminRouteAuthentication
   },
   {
-    path: '/user/:action/:user_id',
+    path: '/user/:action/:user_id?',
     name: 'user',
     component: User
+  },
+  {
+    path: '/requests/:type/:user_id?',
+    name: 'requests',
   },
   {
     path: '/logout',

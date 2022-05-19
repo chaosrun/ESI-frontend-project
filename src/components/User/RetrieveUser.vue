@@ -28,7 +28,7 @@
         <vs-card>
           <template #text>
             <vs-row>
-              <h4 class="mp-1">Active Requests</h4>
+              <h4 class="mp-1">Request History</h4>
             </vs-row>
             <vs-row>
               <h5 class="p-2">Loan Requests</h5>
