@@ -5,6 +5,7 @@ import UserDashboard from './views/UserDashboard.vue'
 import Auth from './views/Auth.vue';
 import CreateMaterial from './views/Material/CreateMaterial.vue'
 import MaterialCatalog from './views/Material/MaterialCatalog.vue'
+import Borrowers from './views/Borrowers.vue'
 
 Vue.use(VueRouter);
 const getUserInformation = () => {
@@ -76,6 +77,12 @@ const routes = [
     path: '/material/add',
     name: 'add-material',
     component: CreateMaterial,
+    beforeEnter: adminRouteAuthentication
+  },
+  {
+    path: '/borrowers',
+    name: 'borrowers',
+    component: Borrowers,
     beforeEnter: adminRouteAuthentication
   },
   {
