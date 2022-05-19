@@ -6,7 +6,7 @@
       </div>
       <div class="relative">
         <h1 class="text-2xl md:text-3xl text-gray-800 font-bold mb-1">
-          Good afternoon, {{userName}} 👋
+          Good afternoon, {{username}} 👋
         </h1>
       </div>
     </div>
@@ -14,28 +14,14 @@
 </template>
 
 <script>
-const userName = window.localStorage.getItem('userName');
-const userEmail = window.localStorage.getItem('userEmail');
-const userRole = window.localStorage.getItem('userRole');
-const authenticated = window.localStorage.getItem('authenticated');
-
 export default {
   name: 'UserDashboard',
   data: function() {
     return {
-      userName: userName,
-      userEmail: userEmail,
-      userRole: userRole,
-      authenticated: authenticated
-
+      username: window.localStorage.getItem('username'),
     }
   },
   components: {
-  },
-  created(){
-     if(!authenticated){
-      this.$router.push({name: 'login'})
-    }
   },
   methods: {
     

@@ -58,12 +58,11 @@ import SalesIncome from '../components/dashboard/SalesIncome.vue';
 import TopProducts from '../components/dashboard/TopProducts.vue';
 import States from '../components/dashboard/States.vue';
 
-const username = window.localStorage.getItem('username');
 export default {
   name: 'Dashboard',
   data: function() {
     return {
-      username: username,
+      username: window.localStorage.getItem('username'),
     }
   },
   components: {
