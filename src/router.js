@@ -61,11 +61,6 @@ const routes = [
     beforeEnter: userRouteAuthentication
   },
   {
-    path: '/logout',
-    name: 'logout',
-    component: Auth
-  },
-  {
     path: '/materials',
     name: 'materials',
     component: MaterialCatalog,

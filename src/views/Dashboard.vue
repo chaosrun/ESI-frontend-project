@@ -12,7 +12,7 @@
       </div>
     </div>
     <States/>
-  <vs-row>
+    <vs-row>
       <vs-col w="12" class="py-4" code-toggler>
         <vs-card>
           <template #title>
@@ -48,6 +48,16 @@
           </template>
         </vs-card>
       </vs-col>
+      <vs-col w="12" class="py-4">
+        <vs-card>
+          <template #title>
+            <h4>Borrowers in {{ library }}</h4>
+          </template>
+           <template #text>
+            <BorrowersList />
+          </template>
+        </vs-card>
+      </vs-col>
     </vs-row>
   </div>  
 </template>
@@ -57,19 +67,24 @@ import SalesSummary from '../components/dashboard/SalesSummary.vue';
 import SalesIncome from '../components/dashboard/SalesIncome.vue';
 import TopProducts from '../components/dashboard/TopProducts.vue';
 import States from '../components/dashboard/States.vue';
+import BorrowersList from '../components/dashboard/BorrowersList.vue';
 
 export default {
   name: 'Dashboard',
   data: function() {
+    const currentUser = JSON.parse(window.localStorage.getItem('user'));
+
     return {
       username: window.localStorage.getItem('username'),
+      library: currentUser.library
     }
   },
   components: {
     SalesSummary,
     SalesIncome,
     TopProducts,
-    States
+    States,
+    BorrowersList
   },
   methods: {
   }
