@@ -6,6 +6,7 @@ import Auth from './views/Auth.vue';
 import CreateMaterial from './views/Material/CreateMaterial.vue'
 import MaterialCatalog from './views/Material/MaterialCatalog.vue'
 import Borrowers from './views/Borrowers.vue'
+import User from './views/User.vue'
 
 Vue.use(VueRouter);
 const getUserInformation = () => {
@@ -84,6 +85,12 @@ const routes = [
     name: 'borrowers',
     component: Borrowers,
     beforeEnter: adminRouteAuthentication
+  },
+  {
+    path: '/user/:action/:user_id',
+    name: 'user',
+    component: User,
+    // beforeEnter: adminRouteAuthentication
   },
   {
     path: '/logout',
