@@ -4,7 +4,7 @@
       <vs-col w="6">
         <div class="card mt-5">
           <div class="card-header">Sign In</div>
-          <div class="card-body mt-5">
+          <div class="card-body">
             <form>
               <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
@@ -54,3 +54,14 @@ export default {
   },
 };
 </script>
+
+<style>
+#app {
+  margin-top: 100px;
+}
+
+.card {
+  max-width: 500px;
+  margin: auto;
+}
+</style>

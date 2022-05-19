@@ -6,7 +6,7 @@
         :open.sync="menuOpen"
         absolute
         v-model=active
-        square=true
+        :square=true
         >
         <template #logo>
           <h4>logo</h4>
