@@ -5,23 +5,23 @@
         textWhite
         :open.sync="menuOpen"
         absolute
-        v-model="active"
-        square="true"
+        v-model=active
+        square=true
         >
         <template #logo>
-          <h4>Company's name</h4>
+          <h4>logo</h4>
         </template>
-        <vs-sidebar-item id="home">
+        <vs-sidebar-item id="home" to="/">
           <template #icon>
             <i class='bx bx-home'></i>
           </template>
           Home
         </vs-sidebar-item>
-        <vs-sidebar-item id="market">
+        <vs-sidebar-item id="market" to="/materials">
           <template #icon>
             <i class='bx bx-grid-alt'></i>
           </template>
-          Market Overview
+          Materials
         </vs-sidebar-item>
         <vs-sidebar-item id="Music">
           <template #icon>
@@ -74,8 +74,13 @@
 
 <script>
 export default {
-  props: ['active', 'menuOpen'],
-   methods: {
+  props: ['menuOpen'],
+  data: () => {
+    return {
+      active: "home"
+    }
+  },
+  methods: {
         setActiveMenu() {
             this.$emit('set-active-menu');
         }
