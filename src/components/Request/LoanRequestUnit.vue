@@ -31,6 +31,14 @@
         <th>Status:</th>
         <td>{{ request.status }}</td>
       </tr>
+      <tr v-if="currentUserRole === 'LIBRARIAN'">
+        <th>User Name:</th>
+        <td>{{ request.userName }}</td>
+      </tr>
+      <tr v-if="currentUserRole === 'LIBRARIAN'">
+        <th>User Email:</th>
+        <td>{{ request.userEmail }}</td>
+      </tr>
       <tr>
         <th>Location Address:</th>
         <td>{{ request.locationAddress }}</td>
@@ -51,12 +59,18 @@
           >
             Cancel
           </button>
-          <button v-else-if="currentUserRole === 'BORROWER'" class="btt" disabled>
+          <button
+            v-else-if="currentUserRole === 'BORROWER'"
+            class="btt"
+            disabled
+          >
             Cancel
           </button>
           <button
             v-if="
-              request.status === 'REQUESTED' && currentUserRole === 'LIBRARIAN' && request.materialHomeLibrary === currentUserHomeLibrary
+              request.status === 'REQUESTED' &&
+              currentUserRole === 'LIBRARIAN' &&
+              request.materialHomeLibrary === currentUserHomeLibrary
             "
             class="btt"
             @click="update(request.id, { status: 'APPROVED' })"
@@ -65,7 +79,9 @@
           </button>
           <button
             v-if="
-              (request.status !== 'REQUESTED' || request.materialHomeLibrary !== currentUserHomeLibrary) && currentUserRole === 'LIBRARIAN'
+              (request.status !== 'REQUESTED' ||
+                request.materialHomeLibrary !== currentUserHomeLibrary) &&
+              currentUserRole === 'LIBRARIAN'
             "
             class="btt"
             disabled
@@ -75,7 +91,9 @@
           <span></span>
           <button
             v-if="
-              request.status === 'REQUESTED' && currentUserRole === 'LIBRARIAN' && request.materialHomeLibrary === currentUserHomeLibrary
+              request.status === 'REQUESTED' &&
+              currentUserRole === 'LIBRARIAN' &&
+              request.materialHomeLibrary === currentUserHomeLibrary
             "
             class="btt"
             @click="update(request.id, { status: 'REJECTED' })"
@@ -84,7 +102,9 @@
           </button>
           <button
             v-if="
-              (request.status !== 'REQUESTED' || request.materialHomeLibrary !== currentUserHomeLibrary) && currentUserRole === 'LIBRARIAN'
+              (request.status !== 'REQUESTED' ||
+                request.materialHomeLibrary !== currentUserHomeLibrary) &&
+              currentUserRole === 'LIBRARIAN'
             "
             class="btt"
             disabled
@@ -115,6 +135,8 @@ export default {
         startDate: null,
         endDate: null,
         status: null,
+        userName: null,
+        userEmail: null,
         localtionAddress: null,
         locationCity: null,
       },
@@ -142,22 +164,22 @@ export default {
           console.log(error);
           alert("Error: " + error);
         });
-    //   if (data.status === "APPROVED") {
-    //     ReservationService.create({
-    //       startDate: this.request.startDate,
-    //       endDate: this.request.endDate,
-    //       status: "APPROVED",
-    //       userId: this.request.userId,
-    //       materialId: this.request.materialId,
-    //     })
-    //       .then((response) => {
-    //         this.request = response.data;
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //         alert(error);
-    //       });
-    //   }
+      //   if (data.status === "APPROVED") {
+      //     ReservationService.create({
+      //       startDate: this.request.startDate,
+      //       endDate: this.request.endDate,
+      //       status: "APPROVED",
+      //       userId: this.request.userId,
+      //       materialId: this.request.materialId,
+      //     })
+      //       .then((response) => {
+      //         this.request = response.data;
+      //       })
+      //       .catch((error) => {
+      //         console.log(error);
+      //         alert(error);
+      //       });
+      //   }
     },
   },
   mounted() {
