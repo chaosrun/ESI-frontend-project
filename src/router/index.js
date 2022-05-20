@@ -1,14 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 import Login from '../components/Login.vue';
 import CreateMaterial from '../views/Material/CreateMaterial.vue';
-import Dashboard from '../views/Dashboard.vue';
 import LoanRequests from '../views/Request/LoanRequests.vue';
 import LoanRequest from '../views/Request/LoanRequest.vue';
 import AddLoanRequest from '../views/Request/AddLoanRequest.vue'
 import MaterialCatalog from '../views/Material/MaterialCatalog.vue';
 import UserDashboard from '../views/UserDashboard.vue';
+import AdminDashboard from '../views/AdminDashboard.vue';
+import Borrowers from '../views/Borrowers.vue'
+import User from '../views/User.vue'
 
 Vue.use(VueRouter);
 
@@ -55,7 +56,7 @@ const routes = [
   {
     path: '/admin/dashboard',
     name: 'admin-dashboard',
-    component: Dashboard,
+    component: AdminDashboard,
     beforeEnter: adminRouteAuthentication
   },
   {
@@ -97,6 +98,21 @@ const routes = [
     name: 'add-material',
     component: CreateMaterial,
     beforeEnter: adminRouteAuthentication
+  },
+  {
+    path: '/borrowers',
+    name: 'borrowers',
+    component: Borrowers,
+    beforeEnter: adminRouteAuthentication
+  },
+  {
+    path: '/user/:action/:user_id?',
+    name: 'user',
+    component: User
+  },
+  {
+    path: '/requests/:type/:user_id?',
+    name: 'requests',
   },
   {
     path: '/logout',

@@ -23,17 +23,17 @@
           </template>
           Materials
         </vs-sidebar-item>
-        <vs-sidebar-item id="Loan Requests" to="/requests/loan">
+        <vs-sidebar-item id="Music" to="/requests/loan">
           <template #icon>
-            <i class='bx bxs-music'></i>
+            <i class='bx bx-male-female'></i>
           </template>
           Loan Requests
         </vs-sidebar-item>
-        <vs-sidebar-item id="donate">
+        <vs-sidebar-item id="donate" v-if="user.role === 'LIBRARIAN'" to="/borrowers">
           <template #icon>
             <i class='bx bxs-donate-heart' ></i>
           </template>
-          Donate
+          Borrowers
         </vs-sidebar-item>
         <vs-sidebar-item id="drink">
           <template #icon>
@@ -76,8 +76,11 @@
 export default {
   props: ['menuOpen'],
   data: () => {
+    const currentUser = JSON.parse(window.localStorage.getItem('user'));
+
     return {
-      active: "home"
+      active: "home",
+      user: currentUser
     }
   },
   methods: {
