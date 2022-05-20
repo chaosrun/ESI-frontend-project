@@ -2,10 +2,10 @@
   <div v-if="action == 'edit'">
     <UpdateUser :user_id="id" />
   </div>
-  <div v-else-if="user.role == 'LIBRARIAN' && action == 'create'">
+  <div v-else-if="currentUser.role == 'LIBRARIAN' && action == 'create'">
     <CreateUser />
   </div>
-  <div v-else-if="user.role == 'LIBRARIAN' && action == 'delete'">
+  <div v-else-if="currentUser.role == 'LIBRARIAN' && action == 'delete'">
     <DeleteUser :user_id="id" />
     <RetrieveUser :user_id="id" />
   </div>
@@ -20,15 +20,15 @@ import RetrieveUser from "../components/User/RetrieveUser.vue";
 import UpdateUser from "../components/User/UpdateUser.vue";
 import DeleteUser from "../components/User/DeleteUser.vue";
 
+const currentUser = JSON.parse(window.localStorage.getItem("user"));
+
 export default {
   name: "UserView",
   data: function () {
-    const currentUser = JSON.parse(window.localStorage.getItem("user"));
     const id = this.$route.params.user_id;
 
     return {
-      user: currentUser,
-      username: window.localStorage.getItem("username"),
+      currentUser: currentUser,
       action: this.$route.params.action,
       id: id ? id : currentUser.id,
     };

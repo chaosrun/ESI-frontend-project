@@ -215,6 +215,8 @@ export default {
                 title: "Success",
                 text: `${this.nameInput} successfully updated!`,
               });
+            }).then(() => {
+              this.viewUser(id);
             });
         })
         .catch((error) => {

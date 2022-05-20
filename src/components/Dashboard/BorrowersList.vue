@@ -41,7 +41,7 @@
                 <vs-td class="row">
                     <vs-button
                         icon
-                        v-if="user.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === 'LIBRARIAN'"
                         color="success"
                         flat
                         @click="openBorrower(tr, 'view')"
@@ -51,7 +51,7 @@
                     </vs-button>
                     <vs-button
                         icon
-                        v-if="user.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === 'LIBRARIAN'"
                         color="primary"
                         flat
                         @click="openBorrower(tr, 'edit')"
@@ -61,7 +61,7 @@
                     </vs-button>
                     <vs-button
                         icon
-                        v-if="user.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === 'LIBRARIAN'"
                         color="danger"
                         flat
                         @click="openBorrower(tr, 'delete')"

@@ -23,7 +23,7 @@ const headers = {
 export default {
   name: "DeleteUser",
   data: function () {
-
+    return {}
   },
   props: ["user_id"],
   methods: {
