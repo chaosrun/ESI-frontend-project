@@ -116,10 +116,6 @@ const routes = [
     name: 'user',
     component: User
   },
-  // {
-  //   path: '/requests/:type/:user_id?',
-  //   name: 'requests',
-  // },
   {
     path: '/logout',
     name: 'logout',
