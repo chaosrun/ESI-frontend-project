@@ -206,9 +206,7 @@ export default {
               userDetails, {
               headers
             })
-            .then((response) => {
-              console.log(response);
-
+            .then(() => {
               this.$vs.notification({
                 color: "success",
                 position: "top-right",

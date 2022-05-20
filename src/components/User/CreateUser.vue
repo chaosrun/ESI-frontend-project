@@ -122,13 +122,12 @@ export default {
           headers,
         })
         .then((response) => {
-          console.log(response);
 
           this.$vs.notification({
             color: "primary",
             position: "top-center",
             title: "Borrower Account Created!",
-            text: `Username: <strong>${this.emailInput}</strong><br/>Password: <strong>${password}</strong>`,
+            text: `Username: <strong>${response.data.email}</strong><br/>Password: <strong>${password}</strong>`,
             time: 10000,
           });
 
