@@ -1,25 +1,25 @@
 <template>
-  <div v-if="user.role == 'BORROWER'">
+  <div v-if="currentUser.role == 'BORROWER'">
     <vs-row justify="center" align="top">
       <vs-col w="3" class="m-5">
         <vs-card>
           <template #text>
             <vs-row>
               <vs-col w="11">
-                <h4 class="mb-1">{{ user.name }}</h4>
+                <h4 class="mb-1">{{ userProfile.name }}</h4>
               </vs-col>
               <vs-col w="1">
                 <i class="bx bx-book-reader bx-lg"></i>
               </vs-col>
             </vs-row>
             <vs-row>
-              <div>{{ user.email }}</div>
+              <div>{{ userProfile.email }}</div>
             </vs-row>
             <vs-row>
-              <div>Home Library: {{ user.homeLibrary }}</div>
+              <div>Home Library: {{ userProfile.homeLibrary }}</div>
             </vs-row>
             <vs-row>
-              <div>Created on: {{ new Date(user.createdAt).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</div>
+              <div>Created on: {{ new Date(userProfile.createdAt).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</div>
             </vs-row>
           </template>
         </vs-card>
@@ -35,13 +35,13 @@
             </vs-row>
             <vs-row>
               <div class="m-2">
-                <div v-if="!user.loanRequests.length">
+                <div v-if="!userProfile.loanRequests.length">
                   No active loan requests
                 </div>
                 <div
                   v-else
                   :key="item"
-                  v-for="(index, item) in user.loanRequests"
+                  v-for="(index, item) in userProfile.loanRequests"
                 >
                   {{ item.key }}
                 </div>
@@ -52,13 +52,13 @@
             </vs-row>
             <vs-row>
               <div class="m-2">
-                <div v-if="!user.loanRequests.length">
+                <div v-if="!userProfile.loanRequests.length">
                   No active extension requests
                 </div>
                 <div
                   v-else
                   :key="item"
-                  v-for="(index, item) in user.extensionRequests"
+                  v-for="(index, item) in userProfile.extensionRequests"
                 >
                   {{ item.key }}
                 </div>
@@ -76,20 +76,20 @@
           <template #text>
             <vs-row>
               <vs-col w="11">
-                <h4 class="mb-1">{{ user.name }}</h4>
+                <h4 class="mb-1">{{ userProfile.name }}</h4>
               </vs-col>
               <vs-col w="1">
                 <i class="bx bx-library bx-lg"></i>
               </vs-col>
             </vs-row>
             <vs-row>
-              <div>{{ user.email }}</div>
+              <div>{{ userProfile.email }}</div>
             </vs-row>
             <vs-row>
-              <div>Home Library: {{ user.homeLibrary }}</div>
+              <div>Home Library: {{ userProfile.homeLibrary }}</div>
             </vs-row>
             <vs-row>
-              <div>Created on: {{ new Date(user.createdAt).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</div>
+              <div>Created on: {{ new Date(userProfile.createdAt).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</div>
             </vs-row>
           </template>
         </vs-card>
@@ -101,13 +101,19 @@
 <script>
 import axios from "axios";
 
+const currentUser = JSON.parse(window.localStorage.getItem("user"));
+const token = window.localStorage.getItem("user-token");
+const headers = {
+  Authorization: "Basic " + token,
+};
+
 export default {
   name: "RetrieveUser",
   data: function () {
 
     return {
-      user: {},
-      token: window.localStorage.getItem("user-token"),
+      currentUser: currentUser,
+      userProfile: {},
     };
   },
   props: ["user_id"],
@@ -117,12 +123,10 @@ export default {
 
       axios
         .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {
-          headers: {
-            Authorization: "Basic " + this.token,
-          },
+          headers
         })
         .then((response) => {
-          this.user = response.data;
+          this.userProfile = response.data;
         })
         .catch((error) => {
           console.log(error);

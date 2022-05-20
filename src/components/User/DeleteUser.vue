@@ -15,14 +15,15 @@
 <script>
 import axios from "axios";
 
+const token = window.localStorage.getItem("user-token");
+const headers = {
+  Authorization: "Basic " + token,
+};
+
 export default {
   name: "DeleteUser",
   data: function () {
 
-    return {
-      user: {},
-      token: window.localStorage.getItem("user-token"),
-    };
   },
   props: ["user_id"],
   methods: {
@@ -31,9 +32,7 @@ export default {
   
       axios
         .delete(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {
-          headers: {
-            'Authorization': "Basic " + this.token
-          },
+          headers
         })
         .then(() => {
             this.$router.push({ name: 'borrowers' })

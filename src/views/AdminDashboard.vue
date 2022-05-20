@@ -11,47 +11,11 @@
         <p>Here is what’s happening with your library today:</p>
       </div>
     </div>
-    <States/>
     <vs-row>
-      <vs-col w="12" class="py-4" code-toggler>
-        <vs-card>
-          <template #title>
-            <h4>
-              Sales Summary
-            </h4>
-          </template>
-          <template #text>
-            <SalesSummary/>
-          </template>
-        </vs-card>
-      </vs-col>
-      <vs-col w="12" class="py-4">
-        <vs-card class="cardx">
-          <template #title>
-            <h4>
-              Sales Income 
-            </h4>
-          </template>
-          <template #text>
-            <SalesIncome/>
-          </template>
-        </vs-card>
-
-      </vs-col>
       <vs-col w="12" class="py-4">
         <vs-card>
           <template #title>
-            <h4>Top Selling Products</h4>
-          </template>
-           <template #text>
-            <TopProducts />
-          </template>
-        </vs-card>
-      </vs-col>
-      <vs-col w="12" class="py-4">
-        <vs-card>
-          <template #title>
-            <h4>Borrowers in {{ library }}</h4>
+            <h4>Borrowers in Library {{ library }}</h4>
           </template>
            <template #text>
             <BorrowersList />
@@ -59,15 +23,19 @@
         </vs-card>
       </vs-col>
     </vs-row>
+    <vs-row>
+      <ViewMaterials />
+    </vs-row>
+    <vs-row>
+      <LoanRequestList />
+    </vs-row>
   </div>  
 </template>
 
 <script>
-import SalesSummary from '../components/dashboard/SalesSummary.vue';
-import SalesIncome from '../components/dashboard/SalesIncome.vue';
-import TopProducts from '../components/dashboard/TopProducts.vue';
-import States from '../components/dashboard/States.vue';
-import BorrowersList from '../components/dashboard/BorrowersList.vue';
+import BorrowersList from '../components/Dashboard/BorrowersList.vue'
+import ViewMaterials from '../components/Material/ViewMaterials.vue'
+import LoanRequestList from '../components/Request/LoanRequestList.vue'
 
 export default {
   name: 'Dashboard',
@@ -80,11 +48,9 @@ export default {
     }
   },
   components: {
-    SalesSummary,
-    SalesIncome,
-    TopProducts,
-    States,
-    BorrowersList
+    BorrowersList,
+    ViewMaterials,
+    LoanRequestList,
   },
   methods: {
   }

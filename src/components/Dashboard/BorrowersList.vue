@@ -78,15 +78,20 @@
 
 <script>
 import axios from "axios";
+
+const currentUser = JSON.parse(window.localStorage.getItem("user"));
+const token = window.localStorage.getItem("user-token");
+const headers = {
+  Authorization: "Basic " + token,
+};
+
 export default {
   data: () => {
-    const currentUser = JSON.parse(window.localStorage.getItem("user"));
 
     return {
       active: "home",
-      user: currentUser,
+      currentUser: currentUser,
       borrowersList: [],
-      token: '',
     };
   },
   methods: {
@@ -94,18 +99,15 @@ export default {
       this.$emit("set-active-menu");
     },
     getBorrowers() {
-      this.token = window.localStorage.getItem("user-token")
       const loading = this.$vs.loading();
 
       axios
         .get(`${process.env.VUE_APP_API_BASE_URL}/users/role/BORROWER`, {
-          headers: {
-            'Authorization': 'Basic ' + this.token
-          },
+          headers
         })
         .then(response => {
             response.data.forEach(borrower => {
-                if (borrower.homeLibrary == this.user.library) {
+                if (borrower.homeLibrary == this.currentUser.library) {
                     this.borrowersList.push(borrower)
                 }
             });

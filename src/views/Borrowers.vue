@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import BorrowersList from "../components/dashboard/BorrowersList.vue";
+import BorrowersList from "../components/Dashboard/BorrowersList.vue";
 
 export default {
   name: "Borrowers",
