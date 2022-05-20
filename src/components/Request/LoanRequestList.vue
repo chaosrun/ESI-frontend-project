@@ -3,7 +3,7 @@
     <h1>All Loan Requests</h1>
 
     <!-- Tab links -->
-    <div class="tab" v-if="!user_id"> 
+    <div class="tab" v-if="!user_id && currentUserRole !== 'BORROWER'"> 
       <button class="tablinks" @click="showAll" :class="{ active: isAll }">
         All
       </button>
