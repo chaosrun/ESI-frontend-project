@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Login from '../components/Login.vue';
 import CreateMaterial from '../views/Material/CreateMaterial.vue'
 import Dashboard from '../views/Dashboard.vue';
+import LoanRequest from '../views/Request/LoanRequest.vue';
 import MaterialCatalog from '../views/Material/MaterialCatalog.vue'
 import UserDashboard from '../views/UserDashboard.vue'
 
@@ -76,6 +77,12 @@ const routes = [
     path: '/catalog',
     name: 'catalog',
     component: MaterialCatalog,
+    beforeEnter: userRouteAuthentication
+  },
+  {
+    path: '/requests/loan',
+    name: 'loan-requests',
+    component: LoanRequest,
     beforeEnter: userRouteAuthentication
   },
   {

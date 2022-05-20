@@ -58,4 +58,7 @@ export default {
   authenticated: function () {
     return this.user.authenticated;
   },
+  userID: function () {
+    return "1";
+  }
 };
