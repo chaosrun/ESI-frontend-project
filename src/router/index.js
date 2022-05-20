@@ -10,6 +10,7 @@ import UserDashboard from '../views/UserDashboard.vue';
 import AdminDashboard from '../views/AdminDashboard.vue';
 import Borrowers from '../views/Borrowers.vue'
 import User from '../views/User.vue'
+import LoanRequestUser from '../views/Request/LoanRequestUserTest.vue'
 
 Vue.use(VueRouter);
 
@@ -94,6 +95,11 @@ const routes = [
     component: AddLoanRequest,
   },
   {
+    path: '/requests/testuser',
+    name: 'requests-user-test',
+    component: LoanRequestUser
+  },
+  {
     path: '/material/add',
     name: 'add-material',
     component: CreateMaterial,
@@ -110,10 +116,10 @@ const routes = [
     name: 'user',
     component: User
   },
-  {
-    path: '/requests/:type/:user_id?',
-    name: 'requests',
-  },
+  // {
+  //   path: '/requests/:type/:user_id?',
+  //   name: 'requests',
+  // },
   {
     path: '/logout',
     name: 'logout',

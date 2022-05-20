@@ -3,7 +3,7 @@
     <h1>All Loan Requests</h1>
 
     <!-- Tab links -->
-    <div class="tab">
+    <div class="tab" v-if="!user_id"> 
       <button class="tablinks" @click="showAll" :class="{ active: isAll }">
         All
       </button>
@@ -50,6 +50,7 @@ import LoanRequestService from "../../services/LoanRequestService.js";
 
 export default {
   name: "LoanRequest",
+  props: ["user_id"],
   data() {
     return {
       requests: [],
@@ -142,7 +143,12 @@ export default {
     const userInformation = JSON.parse(user);
     this.currentUserRole = userInformation.role;
 
-    if (this.currentUserRole === process.env.VUE_APP_LIBRARIAN_ROLE) {
+    if (
+      this.currentUserRole === process.env.VUE_APP_LIBRARIAN_ROLE &&
+      this.user_id
+    ) {
+      this.getAllByUser(this.getUserID());
+    } else if (this.currentUserRole === process.env.VUE_APP_LIBRARIAN_ROLE) {
       this.getAll();
     } else {
       this.getAllByUser(this.getUserID());
@@ -160,6 +166,7 @@ export default {
 
 /* Style the tab */
 .tab {
+  margin-top: 40px;
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
