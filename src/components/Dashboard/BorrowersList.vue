@@ -41,7 +41,7 @@
                 <vs-td class="row">
                     <vs-button
                         icon
-                        v-if="user.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === LIBRARIAN_ROLE"
                         color="success"
                         flat
                         @click="openBorrower(tr, 'view')"
@@ -51,7 +51,7 @@
                     </vs-button>
                     <vs-button
                         icon
-                        v-if="user.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === LIBRARIAN_ROLE"
                         color="primary"
                         flat
                         @click="openBorrower(tr, 'edit')"
@@ -61,7 +61,7 @@
                     </vs-button>
                     <vs-button
                         icon
-                        v-if="user.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === LIBRARIAN_ROLE"
                         color="danger"
                         flat
                         @click="openBorrower(tr, 'delete')"
@@ -78,15 +78,21 @@
 
 <script>
 import axios from "axios";
+
+const currentUser = JSON.parse(window.localStorage.getItem("user"));
+const token = window.localStorage.getItem("user-token");
+const headers = {
+  Authorization: "Basic " + token,
+};
+
 export default {
   data: () => {
-    const currentUser = JSON.parse(window.localStorage.getItem("user"));
 
     return {
       active: "home",
-      user: currentUser,
+      LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
+      currentUser: currentUser,
       borrowersList: [],
-      token: '',
     };
   },
   methods: {
@@ -94,18 +100,15 @@ export default {
       this.$emit("set-active-menu");
     },
     getBorrowers() {
-      this.token = window.localStorage.getItem("user-token")
       const loading = this.$vs.loading();
 
       axios
         .get(`${process.env.VUE_APP_API_BASE_URL}/users/role/BORROWER`, {
-          headers: {
-            'Authorization': 'Basic ' + this.token
-          },
+          headers
         })
         .then(response => {
             response.data.forEach(borrower => {
-                if (borrower.homeLibrary == this.user.library) {
+                if (borrower.homeLibrary == this.currentUser.library) {
                     this.borrowersList.push(borrower)
                 }
             });

@@ -3,7 +3,7 @@
     justify="center"
     align="top"
     v-if="
-      (currentUser.role == 'LIBRARIAN' &&
+      (currentUser.role == LIBRARIAN_ROLE &&
         currentUser.library == profileUser.homeLibrary) ||
       currentUser.id === profileUser.id
     "
@@ -56,7 +56,7 @@
                   id="passwordInput"
                   placeholder="profileUser.password"
                   v-model="passwordInput"
-                  :disabled="currentUser.role !== 'BORROWER'"
+                  :disabled="currentUser.role === LIBRARIAN_ROLE"
                 />
                 <label for="passwordInput">Password</label>
               </div>
@@ -87,7 +87,7 @@
             <vs-col w="11">
               <h4 class="mb-1">Loan Requests</h4>
             </vs-col>
-            <vs-col w="1">
+            <vs-col v-if="profileUser.role !== LIBRARIAN_ROLE" w="1">
               <a @click="openLoanRequests(profileUser.id)"
                 ><i class="bx bx-calendar-edit bx-lg"></i
               ></a>
@@ -99,10 +99,10 @@
             </div>
             <div
               v-else
-              :key="item"
-              v-for="(index, item) in profileUser.loanRequests"
+              :key="index"
+              v-for="(item, index) in profileUser.loanRequests"
             >
-              {{ item.key }}
+              {{index+1}}) {{ item.material.title }} - <span class="badge bg-primary">{{item.status}}</span>
             </div>
           </vs-row>
         </template>
@@ -115,10 +115,8 @@
             <vs-col w="11">
               <h4 class="mb-1">Extension Requests</h4>
             </vs-col>
-            <vs-col v-if="profileUser.role === 'BORROWER'" w="1">
-              <a @click="openExtensionRequests(profileUser.id)"
-                ><i class="bx bx-calendar-edit bx-lg"></i
-              ></a>
+            <vs-col v-if="profileUser.role !== LIBRARIAN_ROLE" w="1">
+              <i class="bx bx-calendar-edit bx-lg"></i>
             </vs-col>
           </vs-row>
           <vs-row>
@@ -127,10 +125,10 @@
             </div>
             <div
               v-else
-              :key="item"
-              v-for="(index, item) in profileUser.extensionRequests"
+              :key="index"
+              v-for="(item, index) in profileUser.extensionRequests"
             >
-              {{ item.key }}
+              {{index+1}}) {{ item.material.title }} - From: {{ new Date(item.startDate).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }} - To: {{ new Date(item.endDate).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
             </div></vs-row
           >
         </template>
@@ -161,6 +159,7 @@ export default {
   props: ["user_id"],
   data() {
     return {
+      LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
       currentUser: currentUser,
       profileUser: {},
       nameInput: "",
@@ -206,15 +205,15 @@ export default {
               userDetails, {
               headers
             })
-            .then((response) => {
-              console.log(response);
-
+            .then(() => {
               this.$vs.notification({
                 color: "success",
                 position: "top-right",
                 title: "Success",
                 text: `${this.nameInput} successfully updated!`,
               });
+            }).then(() => {
+              this.viewUser(id);
             });
         })
         .catch((error) => {

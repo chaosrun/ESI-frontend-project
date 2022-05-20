@@ -1,9 +1,9 @@
 <template>
-  <div class="requests">
-    <h1>All Loan Requests</h1>
+  <div :class="user_id ? 'requests-inner' : 'requests'">
+    <h1 v-if="!user_id">All Loan Requests</h1>
 
     <!-- Tab links -->
-    <div class="tab" v-if="!user_id && currentUserRole !== 'BORROWER'"> 
+    <div class="tab" v-if="!user_id && currentUserRole !== 'BORROWER'">
       <button class="tablinks" @click="showAll" :class="{ active: isAll }">
         All
       </button>
@@ -21,9 +21,18 @@
       >
         Approved
       </button>
+      <button
+        class="tablinks"
+        @click="showOthers"
+        :class="{ active: isOthers }"
+      >
+        Other Libraries
+      </button>
     </div>
-
-    <table class="table mt-5">
+    <div class="requests-non" v-if="filterMaterialsByHomeLibrary.length === 0">
+      No requests
+    </div>
+    <table class="table mt-5" v-if="filterMaterialsByHomeLibrary.length > 0">
       <thead>
         <tr>
           <th scope="col">ID</th>
@@ -33,7 +42,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="request in requests" :key="request.id">
+        <tr v-for="request in filterMaterialsByHomeLibrary" :key="request.id">
           <th scope="row">{{ request.id }}</th>
           <td>{{ request.materialTitle }}</td>
           <td>{{ request.status }}</td>
@@ -55,10 +64,29 @@ export default {
     return {
       requests: [],
       currentUserRole: "",
+      currentUserHomeLibrary: "",
       isAll: true,
       isPending: false,
       isApproved: false,
+      isOthers: false,
     };
+  },
+  computed: {
+    filterMaterialsByHomeLibrary: function () {
+      if (this.currentUserRole === "LIBRARIAN" && !this.isOthers) {
+        return this.requests.filter(
+          (request) =>
+            request.materialHomeLibrary === this.currentUserHomeLibrary
+        );
+      } else if (this.currentUserRole == "LIBRARIAN" && this.isOthers) {
+        return this.requests.filter(
+          (request) =>
+            request.materialHomeLibrary !== this.currentUserHomeLibrary
+        );
+      } else {
+        return this.requests;
+      }
+    },
   },
   methods: {
     getUserID() {
@@ -75,16 +103,15 @@ export default {
         });
     },
     getAll() {
-      if (this.isAll) {
+      if (this.isAll || this.isOthers) {
         LoanRequestService.getAll()
           .then((response) => {
             this.requests = response.data;
           })
           .catch((error) => {
             this.isAll = false;
-            console.log(error);
             if (error.response.status === 404) {
-              alert("There are no requests");
+              console.log(error);
             } else {
               alert(error);
             }
@@ -98,7 +125,7 @@ export default {
             console.log(error);
             this.isPending = false;
             if (error.response.status === 404) {
-              alert("There are no pending requests");
+              console.log(error);
             } else {
               alert(error);
             }
@@ -112,7 +139,7 @@ export default {
             console.log(error);
             this.isApproved = false;
             if (error.response.status === 404) {
-              alert("There are no approved requests");
+              console.log(error);
             } else {
               alert(error);
             }
@@ -123,18 +150,28 @@ export default {
       this.isAll = true;
       this.isPending = false;
       this.isApproved = false;
+      this.isOthers = false;
       this.getAll();
     },
     showPending() {
       this.isAll = false;
       this.isPending = true;
       this.isApproved = false;
+      this.isOthers = false;
       this.getAll();
     },
     showApproved() {
       this.isAll = false;
       this.isPending = false;
       this.isApproved = true;
+      this.isOthers = false;
+      this.getAll();
+    },
+    showOthers() {
+      this.isAll = false;
+      this.isPending = false;
+      this.isApproved = false;
+      this.isOthers = true;
       this.getAll();
     },
   },
@@ -162,6 +199,20 @@ export default {
   max-width: 800px;
   margin: auto;
   margin-top: 50px;
+}
+
+.requests-inner {
+  max-width: 800px;
+  margin: auto;
+  margin-top: -10px;
+  width: 100%;
+}
+
+.requests-non {
+  margin-top: 30px;
+  margin-left: 5px;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 /* Style the tab */

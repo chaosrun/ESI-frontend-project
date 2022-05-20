@@ -3,10 +3,10 @@
       <vs-sidebar
         background="#1f293b"
         textWhite
-        :open.sync="menuOpen"
+        :open.sync="menuToggle"
         absolute
         v-model=active
-        :square=true
+        :square="true"
         >
         <template #logo>
           <h4>logo</h4>
@@ -19,39 +19,21 @@
         </vs-sidebar-item>
         <vs-sidebar-item id="market" to="/materials">
           <template #icon>
-            <i class='bx bx-grid-alt'></i>
+            <i class='bx bx-book'></i>
           </template>
           Materials
         </vs-sidebar-item>
         <vs-sidebar-item id="Music" to="/requests/loan">
           <template #icon>
-            <i class='bx bx-male-female'></i>
+            <i class='bx bxs-book-bookmark' ></i>
           </template>
           Loan Requests
         </vs-sidebar-item>
-        <vs-sidebar-item id="donate" v-if="user.role === 'LIBRARIAN'" to="/borrowers">
+        <vs-sidebar-item v-if="user && user.role === librarian_role" id="borrowers" to="/borrowers">
           <template #icon>
-            <i class='bx bxs-donate-heart' ></i>
+            <i class='bx bxs-user-account' ></i>
           </template>
           Borrowers
-        </vs-sidebar-item>
-        <vs-sidebar-item id="drink">
-          <template #icon>
-            <i class='bx bx-drink'></i>
-          </template>
-          Drink
-        </vs-sidebar-item>
-        <vs-sidebar-item id="shopping">
-          <template #icon>
-            <i class='bx bxs-shopping-bags'></i>
-          </template>
-          Shopping
-        </vs-sidebar-item>
-        <vs-sidebar-item id="chat">
-          <template #icon>
-            <i class='bx bx-chat' ></i>
-          </template>
-          Chat
         </vs-sidebar-item>
         <template #footer>
           <vs-row justify="space-between">
@@ -74,19 +56,34 @@
 
 <script>
 export default {
-  props: ['menuOpen'],
   data: () => {
-    const currentUser = JSON.parse(window.localStorage.getItem('user'));
-
     return {
       active: "home",
-      user: currentUser
+      user: {},
+      librarian_role: process.env.VUE_APP_LIBRARIAN_ROLE,
+      menuToggle: false
     }
   },
+  props: ['menuOpen'],
   methods: {
         setActiveMenu() {
             this.$emit('set-active-menu');
         }
-    }
+  },
+  watch: {
+    menuOpen: function(newVal) { // watch it
+      this.menuToggle = newVal;
+    },
+    menuToggle: function(newVal) { // watch it
+      if(newVal === false) {
+        this.$emit('toggle-menu');
+      }
+    },
+  },
+  mounted () {
+    const currentUser = JSON.parse(window.localStorage.getItem('user'));
+    this.user = currentUser;
+    this.menuToggle = this.menuOpen;
+  }
 }
 </script>
