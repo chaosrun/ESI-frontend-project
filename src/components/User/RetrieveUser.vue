@@ -43,35 +43,7 @@
             <h5 class="p-2">Loan Requests</h5>
           </vs-row>
           <vs-row>
-            <div class="m-2">
-              <div v-if="!userProfile.loanRequests.length">
-                No active loan requests
-              </div>
-              <div
-                v-else
-                :key="item"
-                v-for="(index, item) in userProfile.loanRequests"
-              >
-                {{ item.key }}
-              </div>
-            </div>
-          </vs-row>
-          <vs-row>
-            <h5 class="p-2">Extension Requests</h5>
-          </vs-row>
-          <vs-row>
-            <div class="m-2">
-              <div v-if="!userProfile.loanRequests.length">
-                No active extension requests
-              </div>
-              <div
-                v-else
-                :key="item"
-                v-for="(index, item) in userProfile.extensionRequests"
-              >
-                {{ item.key }}
-              </div>
-            </div>
+            <LoanRequestList :user_id="userProfile.id" />
           </vs-row>
         </template>
       </vs-card>
