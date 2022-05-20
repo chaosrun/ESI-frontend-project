@@ -6,8 +6,8 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Score</th>
+          <th scope="col">Title</th>
+          <th scope="col">Status</th>
           <th scope="col">#</th>
         </tr>
       </thead>

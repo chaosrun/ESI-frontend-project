@@ -41,7 +41,16 @@
       </tr>
       <tr>
         <th>Operations:</th>
-        <td><button class="btt" @click="update(request.id, {'status': 'CANCELLED'})">Cancel</button></td>
+        <td>
+          <button
+            v-if="request.status === 'REQUESTED'"
+            class="btt"
+            @click="update(request.id, { status: 'CANCELLED' })"
+          >
+            Cancel
+          </button>
+          <button v-else class="btt" disabled>Cancel</button>
+        </td>
       </tr>
     </table>
   </div>
@@ -64,7 +73,7 @@ export default {
         status: null,
         localtionAddress: null,
         locationCity: null,
-      }
+      },
     };
   },
   methods: {
@@ -103,11 +112,11 @@ export default {
 }
 
 tr {
-    border-color: #ccc !important;
+  border-color: #ccc !important;
 }
 
 .btt {
-    border: 1px solid #333;
-    margin-left: -5px;
+  border: 1px solid #333;
+  margin-left: -5px;
 }
 </style>
