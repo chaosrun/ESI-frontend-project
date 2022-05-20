@@ -10,7 +10,6 @@ import UserDashboard from '../views/UserDashboard.vue';
 import AdminDashboard from '../views/AdminDashboard.vue';
 import Borrowers from '../views/Borrowers.vue'
 import User from '../views/User.vue'
-import LoanRequestUser from '../views/Request/LoanRequestUserTest.vue'
 
 Vue.use(VueRouter);
 
@@ -93,11 +92,6 @@ const routes = [
     path: "/request/create/loan/:id",
     name: "loan-request-create",
     component: AddLoanRequest,
-  },
-  {
-    path: '/requests/testuser',
-    name: 'requests-user-test',
-    component: LoanRequestUser
   },
   {
     path: '/material/add',
