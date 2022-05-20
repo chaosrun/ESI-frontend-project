@@ -6,6 +6,7 @@ import CreateMaterial from '../views/Material/CreateMaterial.vue';
 import Dashboard from '../views/Dashboard.vue';
 import LoanRequests from '../views/Request/LoanRequests.vue';
 import LoanRequest from '../views/Request/LoanRequest.vue';
+import AddLoanRequest from '../views/Request/AddLoanRequest.vue'
 import MaterialCatalog from '../views/Material/MaterialCatalog.vue';
 import UserDashboard from '../views/UserDashboard.vue';
 
@@ -85,6 +86,11 @@ const routes = [
     path: "/request/loan/:id",
     name: "loan-request",
     component: LoanRequest,
+  },
+  {
+    path: "/request/create/loan/:id",
+    name: "loan-request-create",
+    component: AddLoanRequest,
   },
   {
     path: '/material/add',
