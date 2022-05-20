@@ -2,11 +2,12 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Login from '../components/Login.vue';
-import CreateMaterial from '../views/Material/CreateMaterial.vue'
+import CreateMaterial from '../views/Material/CreateMaterial.vue';
 import Dashboard from '../views/Dashboard.vue';
 import LoanRequests from '../views/Request/LoanRequests.vue';
-import MaterialCatalog from '../views/Material/MaterialCatalog.vue'
-import UserDashboard from '../views/UserDashboard.vue'
+import LoanRequest from '../views/Request/LoanRequest.vue';
+import MaterialCatalog from '../views/Material/MaterialCatalog.vue';
+import UserDashboard from '../views/UserDashboard.vue';
 
 Vue.use(VueRouter);
 
@@ -63,11 +64,6 @@ const routes = [
     beforeEnter: userRouteAuthentication
   },
   {
-    path: '/logout',
-    name: 'logout',
-    component: Login
-  },
-  {
     path: '/materials',
     name: 'materials',
     component: MaterialCatalog,
@@ -84,6 +80,11 @@ const routes = [
     name: 'loan-requests',
     component: LoanRequests,
     beforeEnter: userRouteAuthentication
+  },
+  {
+    path: "/request/loan/:id",
+    name: "loan-request",
+    component: LoanRequest,
   },
   {
     path: '/material/add',
