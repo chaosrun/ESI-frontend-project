@@ -1,9 +1,9 @@
 <template>
-  <div class="requests">
-    <h1>All Loan Requests</h1>
+  <div :class="user_id ? 'requests-inner' : 'requests'">
+    <h1 v-if="!user_id">All Loan Requests</h1>
 
     <!-- Tab links -->
-    <div class="tab" v-if="!user_id && currentUserRole !== 'BORROWER'"> 
+    <div class="tab" v-if="!user_id && currentUserRole !== 'BORROWER'">
       <button class="tablinks" @click="showAll" :class="{ active: isAll }">
         All
       </button>
@@ -162,6 +162,13 @@ export default {
   max-width: 800px;
   margin: auto;
   margin-top: 50px;
+}
+
+.requests-inner {
+  max-width: 800px;
+  margin: auto;
+  margin-top: -10px;
+  width: 100%;
 }
 
 /* Style the tab */

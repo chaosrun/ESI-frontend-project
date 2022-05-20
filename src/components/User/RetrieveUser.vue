@@ -31,38 +31,7 @@
               <h4 class="mp-1">Request History</h4>
             </vs-row>
             <vs-row>
-              <h5 class="p-2">Loan Requests</h5>
-            </vs-row>
-            <vs-row>
-              <div class="m-2">
-                <div v-if="!user.loanRequests.length">
-                  No active loan requests
-                </div>
-                <div
-                  v-else
-                  :key="item"
-                  v-for="(index, item) in user.loanRequests"
-                >
-                  {{ item.key }}
-                </div>
-              </div>
-            </vs-row>
-            <vs-row>
-              <h5 class="p-2">Extension Requests</h5>
-            </vs-row>
-            <vs-row>
-              <div class="m-2">
-                <div v-if="!user.loanRequests.length">
-                  No active extension requests
-                </div>
-                <div
-                  v-else
-                  :key="item"
-                  v-for="(index, item) in user.extensionRequests"
-                >
-                  {{ item.key }}
-                </div>
-              </div>
+              <LoanRequestList :user_id="user.id" />
             </vs-row>
           </template>
         </vs-card>
@@ -100,11 +69,14 @@
 
 <script>
 import axios from "axios";
+import LoanRequestList from "../../components/Request/LoanRequestList";
 
 export default {
   name: "RetrieveUser",
+  components: {
+    LoanRequestList
+  },
   data: function () {
-
     return {
       user: {},
       token: window.localStorage.getItem("user-token"),

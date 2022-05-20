@@ -51,7 +51,7 @@
           >
             Cancel
           </button>
-          <button v-if="currentUserRole === 'BORROWER'" class="btt" disabled>
+          <button v-else-if="currentUserRole === 'BORROWER'" class="btt" disabled>
             Cancel
           </button>
           <button
