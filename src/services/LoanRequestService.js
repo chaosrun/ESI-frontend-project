@@ -19,6 +19,9 @@ class LoanRequestDataService {
   getAllByUser(id) {
     return http.get(`/requests/loan/borrower/${id}`);
   }
+  getAllByStatus(status) {
+    return http.get(`/requests/loan/status/${status}`);
+  }
 }
 
 export default new LoanRequestDataService();

@@ -43,13 +43,54 @@
         <th>Operations:</th>
         <td>
           <button
-            v-if="request.status === 'REQUESTED'"
+            v-if="
+              request.status === 'REQUESTED' && currentUserRole === 'BORROWER'
+            "
             class="btt"
             @click="update(request.id, { status: 'CANCELLED' })"
           >
             Cancel
           </button>
-          <button v-else class="btt" disabled>Cancel</button>
+          <button v-if="currentUserRole === 'BORROWER'" class="btt" disabled>
+            Cancel
+          </button>
+          <button
+            v-if="
+              request.status === 'REQUESTED' && currentUserRole === 'LIBRARIAN'
+            "
+            class="btt"
+            @click="update(request.id, { status: 'APPROVED' })"
+          >
+            Approve
+          </button>
+          <button
+            v-if="
+              request.status !== 'REQUESTED' && currentUserRole === 'LIBRARIAN'
+            "
+            class="btt"
+            disabled
+          >
+            Approve
+          </button>
+          <span></span>
+          <button
+            v-if="
+              request.status === 'REQUESTED' && currentUserRole === 'LIBRARIAN'
+            "
+            class="btt"
+            @click="update(request.id, { status: 'REJECTED' })"
+          >
+            Reject
+          </button>
+          <button
+            v-if="
+              request.status !== 'REQUESTED' && currentUserRole === 'LIBRARIAN'
+            "
+            class="btt"
+            disabled
+          >
+            Reject
+          </button>
         </td>
       </tr>
     </table>
@@ -58,6 +99,7 @@
 
 <script>
 import LoanRequestService from "../../services/LoanRequestService.js";
+// import ReservationService from "../../services/ReservationService.js";
 
 export default {
   name: "LoanRequest",
@@ -65,6 +107,8 @@ export default {
     return {
       request: {
         id: null,
+        userId: null,
+        materialId: null,
         materialTitle: null,
         materialCallNumber: null,
         materialHomeLibrary: null,
@@ -74,6 +118,7 @@ export default {
         localtionAddress: null,
         locationCity: null,
       },
+      currentUserRole: "",
     };
   },
   methods: {
@@ -96,10 +141,29 @@ export default {
           console.log(error);
           alert("Error: " + error);
         });
+    //   if (data.status === "APPROVED") {
+    //     ReservationService.create({
+    //       startDate: this.request.startDate,
+    //       endDate: this.request.endDate,
+    //       status: "APPROVED",
+    //       userId: this.request.userId,
+    //       materialId: this.request.materialId,
+    //     })
+    //       .then((response) => {
+    //         this.request = response.data;
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //         alert(error);
+    //       });
+    //   }
     },
   },
   mounted() {
     this.get(this.$route.params.id);
+    const user = window.localStorage.getItem("user");
+    const userInformation = JSON.parse(user);
+    this.currentUserRole = userInformation.role;
   },
 };
 </script>
