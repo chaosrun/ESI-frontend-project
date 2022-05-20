@@ -41,7 +41,7 @@
                 <vs-td class="row">
                     <vs-button
                         icon
-                        v-if="currentUser.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === LIBRARIAN_ROLE"
                         color="success"
                         flat
                         @click="openBorrower(tr, 'view')"
@@ -51,7 +51,7 @@
                     </vs-button>
                     <vs-button
                         icon
-                        v-if="currentUser.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === LIBRARIAN_ROLE"
                         color="primary"
                         flat
                         @click="openBorrower(tr, 'edit')"
@@ -61,7 +61,7 @@
                     </vs-button>
                     <vs-button
                         icon
-                        v-if="currentUser.role === 'LIBRARIAN'"
+                        v-if="currentUser.role === LIBRARIAN_ROLE"
                         color="danger"
                         flat
                         @click="openBorrower(tr, 'delete')"
@@ -90,6 +90,7 @@ export default {
 
     return {
       active: "home",
+      LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
       currentUser: currentUser,
       borrowersList: [],
     };

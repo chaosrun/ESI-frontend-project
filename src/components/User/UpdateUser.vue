@@ -3,7 +3,7 @@
     justify="center"
     align="top"
     v-if="
-      (currentUser.role == 'LIBRARIAN' &&
+      (currentUser.role == LIBRARIAN_ROLE &&
         currentUser.library == profileUser.homeLibrary) ||
       currentUser.id === profileUser.id
     "
@@ -56,7 +56,7 @@
                   id="passwordInput"
                   placeholder="profileUser.password"
                   v-model="passwordInput"
-                  :disabled="currentUser.role !== 'BORROWER'"
+                  :disabled="currentUser.role === LIBRARIAN_ROLE"
                 />
                 <label for="passwordInput">Password</label>
               </div>
@@ -87,7 +87,7 @@
             <vs-col w="11">
               <h4 class="mb-1">Loan Requests</h4>
             </vs-col>
-            <vs-col w="1">
+            <vs-col v-if="profileUser.role !== LIBRARIAN_ROLE" w="1">
               <a @click="openLoanRequests(profileUser.id)"
                 ><i class="bx bx-calendar-edit bx-lg"></i
               ></a>
@@ -115,7 +115,7 @@
             <vs-col w="11">
               <h4 class="mb-1">Extension Requests</h4>
             </vs-col>
-            <vs-col v-if="profileUser.role === 'BORROWER'" w="1">
+            <vs-col v-if="profileUser.role !== LIBRARIAN_ROLE" w="1">
               <a @click="openExtensionRequests(profileUser.id)"
                 ><i class="bx bx-calendar-edit bx-lg"></i
               ></a>
@@ -161,6 +161,7 @@ export default {
   props: ["user_id"],
   data() {
     return {
+      LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
       currentUser: currentUser,
       profileUser: {},
       nameInput: "",
