@@ -13,16 +13,6 @@
             </vs-avatar>
         </template>
       </vs-navbar>
-      <div class="square">
-        <div class="child">
-          child 1
-        </div>
-        <div class="child">
-          child 2
-        </div>
-        <div class="child">
-        </div>
-      </div>
     </div>
 </template>
 
