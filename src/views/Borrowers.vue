@@ -5,15 +5,16 @@
         <BorrowersList />
       </vs-col>
     </vs-row>
-  </div>  
+  </div>
 </template>
 
 <script>
-import BorrowersList from '../components/dashboard/BorrowersList.vue'
+import BorrowersList from "../components/dashboard/BorrowersList.vue";
+
 export default {
-    name: 'Borrowers',
-    components: {
-        BorrowersList,
-    },    
-}
+  name: "Borrowers",
+  components: {
+    BorrowersList,
+  },
+};
 </script>

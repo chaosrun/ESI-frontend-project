@@ -1,11 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Dashboard from './views/Dashboard.vue';
+import AdminDashboard from './views/AdminDashboard.vue';
 import UserDashboard from './views/UserDashboard.vue'
 import Auth from './views/Auth.vue';
 import CreateMaterial from './views/Material/CreateMaterial.vue'
 import MaterialCatalog from './views/Material/MaterialCatalog.vue'
 import Borrowers from './views/Borrowers.vue'
+import User from './views/User.vue'
 
 Vue.use(VueRouter);
 const getUserInformation = () => {
@@ -52,7 +53,7 @@ const routes = [
   {
     path: '/admin/dashboard',
     name: 'admin-dashboard',
-    component: Dashboard,
+    component: AdminDashboard,
     beforeEnter: adminRouteAuthentication
   },
   {
@@ -84,6 +85,15 @@ const routes = [
     name: 'borrowers',
     component: Borrowers,
     beforeEnter: adminRouteAuthentication
+  },
+  {
+    path: '/user/:action/:user_id?',
+    name: 'user',
+    component: User
+  },
+  {
+    path: '/requests/:type/:user_id?',
+    name: 'requests',
   },
   {
     path: '/logout',
