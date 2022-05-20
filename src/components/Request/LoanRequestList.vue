@@ -99,6 +99,7 @@ export default {
           this.requests = response.data;
         })
         .catch((error) => {
+          this.requests = [];
           console.log(error);
         });
     },
@@ -109,7 +110,7 @@ export default {
             this.requests = response.data;
           })
           .catch((error) => {
-            this.isAll = false;
+            this.requests = [];
             if (error.response.status === 404) {
               console.log(error);
             } else {
@@ -123,7 +124,7 @@ export default {
           })
           .catch((error) => {
             console.log(error);
-            this.isPending = false;
+            this.requests = [];
             if (error.response.status === 404) {
               console.log(error);
             } else {
@@ -137,7 +138,7 @@ export default {
           })
           .catch((error) => {
             console.log(error);
-            this.isApproved = false;
+            this.requests = [];
             if (error.response.status === 404) {
               console.log(error);
             } else {
@@ -179,6 +180,7 @@ export default {
     const user = window.localStorage.getItem("user");
     const userInformation = JSON.parse(user);
     this.currentUserRole = userInformation.role;
+    this.currentUserHomeLibrary = userInformation.library;
 
     if (
       this.currentUserRole === process.env.VUE_APP_LIBRARIAN_ROLE &&
