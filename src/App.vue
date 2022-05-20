@@ -2,7 +2,7 @@
   <div id="app">
     <div v-if="$route.name!=='login'">
       <Navbar v-on:toggle-menu="toggleMenu"/>
-      <side-nav :menuOpen="menuOpen"/>    
+      <side-nav v-on:toggle-menu="toggleMenu" :menuOpen="menuOpen"/>    
     </div>
     <div class="px-5">
       <router-view />

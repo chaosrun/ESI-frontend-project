@@ -3,10 +3,10 @@
       <vs-sidebar
         background="#1f293b"
         textWhite
-        :open.sync="menuOpen"
+        :open.sync="menuToggle"
         absolute
         v-model=active
-        square=true
+        :square="true"
         >
         <template #logo>
           <h4>logo</h4>
@@ -23,7 +23,7 @@
           </template>
           Materials
         </vs-sidebar-item>
-        <vs-sidebar-item v-if="user.role === 'LIBRARIAN'" id="borrowers" to="/borrowers">
+        <vs-sidebar-item v-if="user && user.role === librarian_role" id="borrowers" to="/borrowers">
           <template #icon>
             <i class='bx bx-male-female'></i>
           </template>
@@ -74,19 +74,34 @@
 
 <script>
 export default {
-  props: ['menuOpen'],
   data: () => {
-    const currentUser = JSON.parse(window.localStorage.getItem('user'));
-
     return {
       active: "home",
-      user: currentUser
+      user: {},
+      librarian_role: process.env.VUE_APP_LIBRARIAN_ROLE,
+      menuToggle: false
     }
   },
+  props: ['menuOpen'],
   methods: {
         setActiveMenu() {
             this.$emit('set-active-menu');
         }
-    }
+  },
+  watch: {
+    menuOpen: function(newVal) { // watch it
+      this.menuToggle = newVal;
+    },
+    menuToggle: function(newVal) { // watch it
+      if(newVal === false) {
+        this.$emit('toggle-menu');
+      }
+    },
+  },
+  mounted () {
+    const currentUser = JSON.parse(window.localStorage.getItem('user'));
+    this.user = currentUser;
+    this.menuToggle = this.menuOpen;
+  }
 }
 </script>
