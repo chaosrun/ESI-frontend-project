@@ -99,10 +99,10 @@
             </div>
             <div
               v-else
-              :key="item"
-              v-for="(index, item) in profileUser.loanRequests"
+              :key="index"
+              v-for="(item, index) in profileUser.loanRequests"
             >
-              {{ item.key }}
+              {{index+1}}) {{ item.material.title }} - <span class="badge bg-primary">{{item.status}}</span>
             </div>
           </vs-row>
         </template>
@@ -116,9 +116,7 @@
               <h4 class="mb-1">Extension Requests</h4>
             </vs-col>
             <vs-col v-if="profileUser.role !== LIBRARIAN_ROLE" w="1">
-              <a @click="openExtensionRequests(profileUser.id)"
-                ><i class="bx bx-calendar-edit bx-lg"></i
-              ></a>
+              <i class="bx bx-calendar-edit bx-lg"></i>
             </vs-col>
           </vs-row>
           <vs-row>
@@ -127,10 +125,10 @@
             </div>
             <div
               v-else
-              :key="item"
-              v-for="(index, item) in profileUser.extensionRequests"
+              :key="index"
+              v-for="(item, index) in profileUser.extensionRequests"
             >
-              {{ item.key }}
+              {{index+1}}) {{ item.material.title }} - From: {{ new Date(item.startDate).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }} - To: {{ new Date(item.endDate).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
             </div></vs-row
           >
         </template>
