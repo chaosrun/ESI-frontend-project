@@ -19,39 +19,21 @@
         </vs-sidebar-item>
         <vs-sidebar-item id="market" to="/materials">
           <template #icon>
-            <i class='bx bx-grid-alt'></i>
+            <i class='bx bx-book'></i>
           </template>
           Materials
         </vs-sidebar-item>
         <vs-sidebar-item id="Music" to="/requests/loan">
           <template #icon>
-            <i class='bx bx-male-female'></i>
+            <i class='bx bxs-book-bookmark' ></i>
           </template>
           Loan Requests
         </vs-sidebar-item>
         <vs-sidebar-item v-if="user && user.role === librarian_role" id="borrowers" to="/borrowers">
           <template #icon>
-            <i class='bx bxs-donate-heart' ></i>
+            <i class='bx bxs-user-account' ></i>
           </template>
           Borrowers
-        </vs-sidebar-item>
-        <vs-sidebar-item id="drink">
-          <template #icon>
-            <i class='bx bx-drink'></i>
-          </template>
-          Drink
-        </vs-sidebar-item>
-        <vs-sidebar-item id="shopping">
-          <template #icon>
-            <i class='bx bxs-shopping-bags'></i>
-          </template>
-          Shopping
-        </vs-sidebar-item>
-        <vs-sidebar-item id="chat">
-          <template #icon>
-            <i class='bx bx-chat' ></i>
-          </template>
-          Chat
         </vs-sidebar-item>
         <template #footer>
           <vs-row justify="space-between">
