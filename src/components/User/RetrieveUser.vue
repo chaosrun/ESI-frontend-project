@@ -40,10 +40,11 @@
                 </div>
                 <div
                   v-else
-                  :key="item"
-                  v-for="(index, item) in user.loanRequests"
+                  :key="index"
+                  v-for="(item, index) in user.loanRequests"
                 >
-                  {{ item.key }}
+                
+                  {{index+1}}) {{ item.material.title }} - <span class="badge bg-primary">{{item.status}}</span>
                 </div>
               </div>
             </vs-row>
@@ -57,10 +58,10 @@
                 </div>
                 <div
                   v-else
-                  :key="item"
-                  v-for="(index, item) in user.extensionRequests"
+                  :key="index"
+                  v-for="(item, index) in user.extensionRequests"
                 >
-                  {{ item.key }}
+                  {{index+1}}) {{ item.material.title }} - From: {{ new Date(item.startDate).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }} - To: {{ new Date(item.endDate).toLocaleTimeString("en-UK", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
                 </div>
               </div>
             </vs-row>
