@@ -2,13 +2,24 @@
   <div class="requests">
     <h1>All Loan Requests</h1>
 
-    <ul>
-      <p class="item" v-for="request in requests" :key="request.id">
-        <a class="singleplant" :href="'/aplant/' + request.id">
-          <span class="id"> <b>ID:</b> {{ request.id }} </span><br />
-        </a>
-      </p>
-    </ul>
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Score</th>
+          <th scope="col">#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="request in requests" :key="request.id">
+          <th scope="row">{{ request.id }}</th>
+          <td>{{ request.materialTitle }}</td>
+          <td>{{ request.status }}</td>
+          <td><a :href="'/request/loan/' + request.id">Details</a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -43,3 +54,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.requests {
+  max-width: 800px;
+  margin: auto;
+  margin-top: 50px;
+}
+</style>

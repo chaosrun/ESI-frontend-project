@@ -23,11 +23,11 @@
           </template>
           Materials
         </vs-sidebar-item>
-        <vs-sidebar-item id="Music">
+        <vs-sidebar-item id="Loan Requests" to="/requests/loan">
           <template #icon>
             <i class='bx bxs-music'></i>
           </template>
-          Music
+          Loan Requests
         </vs-sidebar-item>
         <vs-sidebar-item id="donate">
           <template #icon>
