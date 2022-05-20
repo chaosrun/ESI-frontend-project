@@ -84,7 +84,7 @@
                         v-if="currentUserRole === BORROWER_ROLE"
                         color="primary"
                         flat
-                        @click="alert('loan request button event')"
+                        @click="$router.push('/request/create/loan/' + tr.id)"
                         class="col-md-10"
                     >
                         Request loan 

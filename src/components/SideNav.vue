@@ -23,17 +23,17 @@
           </template>
           Materials
         </vs-sidebar-item>
-        <vs-sidebar-item v-if="user && user.role === librarian_role" id="borrowers" to="/borrowers">
+        <vs-sidebar-item id="Music" to="/requests/loan">
           <template #icon>
             <i class='bx bx-male-female'></i>
           </template>
-          Borrowers
+          Loan Requests
         </vs-sidebar-item>
-        <vs-sidebar-item id="donate">
+        <vs-sidebar-item v-if="user && user.role === librarian_role" id="borrowers" to="/borrowers">
           <template #icon>
             <i class='bx bxs-donate-heart' ></i>
           </template>
-          Donate
+          Borrowers
         </vs-sidebar-item>
         <vs-sidebar-item id="drink">
           <template #icon>
