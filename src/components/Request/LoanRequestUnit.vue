@@ -56,7 +56,7 @@
           </button>
           <button
             v-if="
-              request.status === 'REQUESTED' && currentUserRole === 'LIBRARIAN'
+              request.status === 'REQUESTED' && currentUserRole === 'LIBRARIAN' && request.materialHomeLibrary === currentUserHomeLibrary
             "
             class="btt"
             @click="update(request.id, { status: 'APPROVED' })"
@@ -65,7 +65,7 @@
           </button>
           <button
             v-if="
-              request.status !== 'REQUESTED' && currentUserRole === 'LIBRARIAN'
+              (request.status !== 'REQUESTED' || request.materialHomeLibrary !== currentUserHomeLibrary) && currentUserRole === 'LIBRARIAN'
             "
             class="btt"
             disabled
@@ -75,7 +75,7 @@
           <span></span>
           <button
             v-if="
-              request.status === 'REQUESTED' && currentUserRole === 'LIBRARIAN'
+              request.status === 'REQUESTED' && currentUserRole === 'LIBRARIAN' && request.materialHomeLibrary === currentUserHomeLibrary
             "
             class="btt"
             @click="update(request.id, { status: 'REJECTED' })"
@@ -84,7 +84,7 @@
           </button>
           <button
             v-if="
-              request.status !== 'REQUESTED' && currentUserRole === 'LIBRARIAN'
+              (request.status !== 'REQUESTED' || request.materialHomeLibrary !== currentUserHomeLibrary) && currentUserRole === 'LIBRARIAN'
             "
             class="btt"
             disabled
@@ -119,6 +119,7 @@ export default {
         locationCity: null,
       },
       currentUserRole: "",
+      currentUserHomeLibrary: "",
     };
   },
   methods: {
@@ -164,6 +165,7 @@ export default {
     const user = window.localStorage.getItem("user");
     const userInformation = JSON.parse(user);
     this.currentUserRole = userInformation.role;
+    this.currentUserHomeLibrary = userInformation.library;
   },
 };
 </script>
