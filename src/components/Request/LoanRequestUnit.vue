@@ -40,7 +40,7 @@
         <td>{{ request.locationCity }}</td>
       </tr>
       <tr>
-        <th>Operations:</th>
+        <th>Actions:</th>
         <td>
           <button
             v-if="
