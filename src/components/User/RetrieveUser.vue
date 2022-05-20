@@ -81,6 +81,7 @@
 
 <script>
 import axios from "axios";
+import LoanRequestList from "../../components/Request/LoanRequestList";
 
 const currentUser = JSON.parse(window.localStorage.getItem("user"));
 const token = window.localStorage.getItem("user-token");
@@ -90,6 +91,9 @@ const headers = {
 
 export default {
   name: "RetrieveUser",
+  components: {
+    LoanRequestList
+  },
   data: function () {
     return {
       currentUser: currentUser,
