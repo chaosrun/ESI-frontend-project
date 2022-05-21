@@ -119,7 +119,6 @@
 
 <script>
 import LoanRequestService from "../../services/LoanRequestService.js";
-// import ReservationService from "../../services/ReservationService.js";
 
 export default {
   name: "LoanRequest",
@@ -164,22 +163,6 @@ export default {
           console.log(error);
           alert("Error: " + error);
         });
-      //   if (data.status === "APPROVED") {
-      //     ReservationService.create({
-      //       startDate: this.request.startDate,
-      //       endDate: this.request.endDate,
-      //       status: "APPROVED",
-      //       userId: this.request.userId,
-      //       materialId: this.request.materialId,
-      //     })
-      //       .then((response) => {
-      //         this.request = response.data;
-      //       })
-      //       .catch((error) => {
-      //         console.log(error);
-      //         alert(error);
-      //       });
-      //   }
     },
   },
   mounted() {

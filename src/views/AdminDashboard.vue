@@ -118,6 +118,7 @@ export default {
     return {
       username: window.localStorage.getItem("username"),
       library: '',
+      currentUser: {}
     };
   },
   components: {
@@ -127,7 +128,10 @@ export default {
   },
   methods: {},
   mounted() {
+    console.log("MOUNTED")
     const currentUser = JSON.parse(window.localStorage.getItem("user"));
+    console.log(currentUser);
+    this.currentUser = currentUser;
     this.library = currentUser.library;
     this.username = window.localStorage.getItem("username");
   }
