@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import BorrowersList from "../components/Dashboard/BorrowersList.vue";
+import BorrowersList from "../components/dashboard/BorrowersList.vue";
 import AddNewBorrower from "../components/User/AddNewBorrower.vue";
 
 export default {

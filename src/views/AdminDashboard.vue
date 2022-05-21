@@ -108,18 +108,16 @@
 </template>
 
 <script>
-import BorrowersList from "../components/Dashboard/BorrowersList.vue";
+import BorrowersList from "../components/dashboard/BorrowersList.vue";
 import ViewMaterials from "../components/Material/ViewMaterials.vue";
 import LoanRequestList from "../components/Request/LoanRequestList.vue";
 
 export default {
   name: "Dashboard",
   data: function () {
-    const currentUser = JSON.parse(window.localStorage.getItem("user"));
-
     return {
       username: window.localStorage.getItem("username"),
-      library: currentUser.library,
+      library: '',
     };
   },
   components: {
@@ -128,6 +126,11 @@ export default {
     LoanRequestList,
   },
   methods: {},
+  mounted() {
+    const currentUser = JSON.parse(window.localStorage.getItem("user"));
+    this.library = currentUser.library;
+    this.username = window.localStorage.getItem("username");
+  }
 };
 </script>
 

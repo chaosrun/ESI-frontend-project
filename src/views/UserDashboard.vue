@@ -30,9 +30,8 @@ export default {
   components: {
     RetrieveUser,
   },
-  methods: {
-    
-  }
+  methods: { },
+  mounted() {}
 }
 </script>
 
