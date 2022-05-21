@@ -33,7 +33,7 @@
         </template>
       </vs-card>
     </vs-col>
-    <vs-col w="7" class="m-5">
+    <vs-col w="7" class="m-5" v-if="userProfile.role !== LIBRARIAN_ROLE">
       <vs-card>
         <template #text>
           <vs-row>
@@ -62,6 +62,7 @@ export default {
   },
   data: function () {
     return {
+      LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
       currentUser: {},
       userProfile: {
         loanRequests: [],

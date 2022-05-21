@@ -60,6 +60,6 @@ export default {
     return this.user.authenticated;
   },
   userID: function () {
-    return "1";
+    return this.user.id;
   }
 };
