@@ -145,7 +145,8 @@ export default {
   },
   methods: {
     get(id) {
-      LoanRequestService.get(id)
+      const token = window.localStorage.getItem('user-token');
+      LoanRequestService.get(id, token)
         .then((response) => {
           this.request = response.data;
         })
@@ -155,7 +156,8 @@ export default {
         });
     },
     update(id, data) {
-      LoanRequestService.update(id, data)
+      const token = window.localStorage.getItem('user-token');
+      LoanRequestService.update(id, data, token)
         .then((response) => {
           this.request = response.data;
         })

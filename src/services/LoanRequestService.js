@@ -1,26 +1,33 @@
 import http from "../http-common";
 
 class LoanRequestDataService {
-  get(id) {
-    return http.get(`/request/loan/${id}`);
+  get(id, token) {
+    const header =  { 'Authorization': `Basic ${token}` }
+    return http.get(`/request/loan/${id}`, { headers: header });
   }
-  create(data) {
-    return http.post("/request/loan", data);
+  create(data, token) {
+    const header =  { 'Authorization': `Basic ${token}` }
+    return http.post("/request/loan", data, { headers: header });
   }
-  update(id, data) {
-    return http.put(`/request/loan/${id}`, data);
+  update(id, data, token) {
+    const header =  { 'Authorization': `Basic ${token}` }
+    return http.put(`/request/loan/${id}`, data, { headers: header });
   }
-  delete(id) {
-    return http.delete(`/request/loan/${id}`);
+  delete(id, token) {
+    const header =  { 'Authorization': `Basic ${token}` }
+    return http.delete(`/request/loan/${id}`, { headers: header });
   }
-  getAll() {
-    return http.get("/requests/loan");
+  getAll(token) {
+    const header =  { 'Authorization': `Basic ${token}` }
+    return http.get("/requests/loan", { headers: header });
   }
-  getAllByUser(id) {
-    return http.get(`/requests/loan/borrower/${id}`);
+  getAllByUser(id, token) {
+    const header =  { 'Authorization': `Basic ${token}` }
+    return http.get(`/requests/loan/borrower/${id}`, { headers: header });
   }
-  getAllByStatus(status) {
-    return http.get(`/requests/loan/status/${status}`);
+  getAllByStatus(status, token) {
+    const header =  { 'Authorization': `Basic ${token}` }
+    return http.get(`/requests/loan/status/${status}`, { headers: header });
   }
 }
 
