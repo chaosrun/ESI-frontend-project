@@ -43,7 +43,7 @@
             <h5 class="p-2">Loan Requests</h5>
           </vs-row>
           <vs-row>
-            <LoanRequestList :user_id="userProfile.id" />
+            <LoanRequestList :user_id="user_id" />
           </vs-row>
         </template>
       </vs-card>
