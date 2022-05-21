@@ -24,13 +24,12 @@ import DeleteUser from "../components/User/DeleteUser.vue";
 export default {
   name: "UserView",
   data: function () {
-    const id = this.$route.params.user_id;
-
+    
     return {
       LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
       currentUser:{},
       action: this.$route.params.action,
-      id: id
+      id: ''
     };
   },
   components: {
@@ -41,9 +40,10 @@ export default {
   },
   methods: {},
   beforeMount () {
+    const id = this.$route.params.user_id;
     const currentUser = JSON.parse(window.localStorage.getItem("user"));
     this.currentUser = currentUser;
-    this.id = currentUser?.id || this.id
+    this.id = id ? id : currentUser.id; 
   }
 };
 </script>
