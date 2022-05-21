@@ -43,7 +43,7 @@
             <h5 class="p-2">Loan Requests</h5>
           </vs-row>
           <vs-row>
-            <LoanRequestList :user_id="userProfile.id" />
+            <LoanRequestList :user_id="user_id" />
           </vs-row>
         </template>
       </vs-card>
@@ -55,12 +55,6 @@
 import axios from "axios";
 import LoanRequestList from "../../components/Request/LoanRequestList";
 
-const currentUser = JSON.parse(window.localStorage.getItem("user"));
-const token = window.localStorage.getItem("user-token");
-const headers = {
-  Authorization: "Basic " + token,
-};
-
 export default {
   name: "RetrieveUser",
   components: {
@@ -68,11 +62,12 @@ export default {
   },
   data: function () {
     return {
-      currentUser: currentUser,
+      currentUser: {},
       userProfile: {
         loanRequests: [],
         extensionRequests: [],
       },
+      headers: {}
     };
   },
   props: ["user_id"],
@@ -81,9 +76,7 @@ export default {
       const loading = this.$vs.loading();
 
       axios
-        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {
-          headers,
-        })
+        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {headers: this.headers})
         .then((response) => {
           this.userProfile = response.data;
         })
@@ -94,7 +87,13 @@ export default {
       loading.close();
     },
   },
-  created() {
+  beforeMount() {
+    this.currentUser = JSON.parse(window.localStorage.getItem("user"));
+    const token = window.localStorage.getItem("user-token");
+    this.headers = {
+      Authorization: "Basic " + token,
+    };
+
     this.loadUser(this.user_id);
   },
 

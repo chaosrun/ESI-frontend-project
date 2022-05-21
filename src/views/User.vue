@@ -20,7 +20,6 @@ import RetrieveUser from "../components/User/RetrieveUser.vue";
 import UpdateUser from "../components/User/UpdateUser.vue";
 import DeleteUser from "../components/User/DeleteUser.vue";
 
-const currentUser = JSON.parse(window.localStorage.getItem("user"));
 
 export default {
   name: "UserView",
@@ -29,9 +28,9 @@ export default {
 
     return {
       LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
-      currentUser: currentUser,
+      currentUser:{},
       action: this.$route.params.action,
-      id: id ? id : currentUser.id,
+      id: id
     };
   },
   components: {
@@ -41,6 +40,11 @@ export default {
     DeleteUser,
   },
   methods: {},
+  beforeMount () {
+    const currentUser = JSON.parse(window.localStorage.getItem("user"));
+    this.currentUser = currentUser;
+    this.id = currentUser?.id || this.id
+  }
 };
 </script>
 

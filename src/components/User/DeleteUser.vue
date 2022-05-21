@@ -15,15 +15,12 @@
 <script>
 import axios from "axios";
 
-const token = window.localStorage.getItem("user-token");
-const headers = {
-  Authorization: "Basic " + token,
-};
-
 export default {
   name: "DeleteUser",
   data: function () {
-    return {}
+    return {
+      headers: {}
+    }
   },
   props: ["user_id"],
   methods: {
@@ -31,9 +28,7 @@ export default {
       const loading = this.$vs.loading();
   
       axios
-        .delete(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {
-          headers
-        })
+        .delete(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, { headers: this.headers })
         .then(() => {
             this.$router.push({ name: 'borrowers' })
         })
@@ -46,6 +41,12 @@ export default {
     viewUser() {
       this.$router.push({ name: 'borrowers' })
     }
+  },
+  beforeMount () {
+    const token = window.localStorage.getItem("user-token");
+    this.headers = {
+      Authorization: "Basic " + token,
+    };
   }
 };
 </script>

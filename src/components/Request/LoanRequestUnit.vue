@@ -119,7 +119,6 @@
 
 <script>
 import LoanRequestService from "../../services/LoanRequestService.js";
-// import ReservationService from "../../services/ReservationService.js";
 
 export default {
   name: "LoanRequest",
@@ -146,7 +145,8 @@ export default {
   },
   methods: {
     get(id) {
-      LoanRequestService.get(id)
+      const token = window.localStorage.getItem('user-token');
+      LoanRequestService.get(id, token)
         .then((response) => {
           this.request = response.data;
         })
@@ -156,7 +156,8 @@ export default {
         });
     },
     update(id, data) {
-      LoanRequestService.update(id, data)
+      const token = window.localStorage.getItem('user-token');
+      LoanRequestService.update(id, data, token)
         .then((response) => {
           this.request = response.data;
         })
@@ -164,25 +165,9 @@ export default {
           console.log(error);
           alert("Error: " + error);
         });
-      //   if (data.status === "APPROVED") {
-      //     ReservationService.create({
-      //       startDate: this.request.startDate,
-      //       endDate: this.request.endDate,
-      //       status: "APPROVED",
-      //       userId: this.request.userId,
-      //       materialId: this.request.materialId,
-      //     })
-      //       .then((response) => {
-      //         this.request = response.data;
-      //       })
-      //       .catch((error) => {
-      //         console.log(error);
-      //         alert(error);
-      //       });
-      //   }
     },
   },
-  mounted() {
+  beforeMount() {
     this.get(this.$route.params.id);
     const user = window.localStorage.getItem("user");
     const userInformation = JSON.parse(user);
