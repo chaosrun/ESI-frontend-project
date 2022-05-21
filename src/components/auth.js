@@ -17,19 +17,19 @@ export default {
         headers: { Authorization: `Basic ${token}` },
       })
       .then((response) => {
-        this.user.id = response.data.id;
-        this.user.email = response.data.email;
-        this.user.role = response.data.role;
-        this.user.name = response.data.name;
-        this.user.library = response.data.library;
+        this.user = response.data;
         this.user.token = token;
         this.user.authenticated = true;
+
         window.localStorage.setItem("token-" + this.email, token);
         window.localStorage.setItem("user", JSON.stringify(this.user));
         window.localStorage.setItem("user-token", token);
         window.localStorage.setItem("username", this.user.name);
 
-        if (this.user.role === process.env.VUE_APP_LIBRARIAN_ROLE) {
+        return this.user;
+      })
+      .then((user) => {
+        if (user.role === process.env.VUE_APP_LIBRARIAN_ROLE) {
           context.$router.push({ name: "admin-dashboard" });
         } else {
           context.$router.push({ name: "user-dashboard" });
@@ -45,6 +45,7 @@ export default {
   },
   logout: function () {
     window.localStorage.removeItem("token-" + this.username);
+    window.localStorage.clear();
     this.user = {
       id: "",
       email: "",
