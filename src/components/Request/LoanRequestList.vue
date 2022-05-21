@@ -62,6 +62,7 @@ export default {
   props: ["user_id"],
   data() {
     return {
+      token: "",
       requests: [],
       currentUserRole: "",
       currentUserHomeLibrary: "",
@@ -94,7 +95,7 @@ export default {
       return auth.userID();
     },
     getAllByUser(id) {
-      LoanRequestService.getAllByUser(id)
+      LoanRequestService.getAllByUser(id, this.token)
         .then((response) => {
           this.requests = response.data;
         })
@@ -105,7 +106,7 @@ export default {
     },
     getAll() {
       if (this.isAll || this.isOthers) {
-        LoanRequestService.getAll()
+        LoanRequestService.getAll(this.token)
           .then((response) => {
             this.requests = response.data;
           })
@@ -118,7 +119,7 @@ export default {
             }
           });
       } else if (this.isPending) {
-        LoanRequestService.getAllByStatus("REQUESTED")
+        LoanRequestService.getAllByStatus("REQUESTED", this.token)
           .then((response) => {
             this.requests = response.data;
           })
@@ -132,7 +133,7 @@ export default {
             }
           });
       } else if (this.isApproved) {
-        LoanRequestService.getAllByStatus("APPROVED")
+        LoanRequestService.getAllByStatus("APPROVED", this.token)
           .then((response) => {
             this.requests = response.data;
           })
@@ -181,6 +182,8 @@ export default {
     const userInformation = JSON.parse(user);
     this.currentUserRole = userInformation.role;
     this.currentUserHomeLibrary = userInformation.library;
+
+    this.token = window.localStorage.getItem("user-token")
 
     if (
       this.currentUserRole === process.env.VUE_APP_LIBRARIAN_ROLE &&

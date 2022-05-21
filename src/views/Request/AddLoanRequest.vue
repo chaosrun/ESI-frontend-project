@@ -88,7 +88,8 @@ export default {
         city: this.city,
         zipCode: this.zipCode,
       };
-      LoanRequestService.create(data)
+      const token = window.localStorage.getItem('user-token');
+      LoanRequestService.create(data, token)
         .then((response) => {
           router.push("/request/loan/" + response.data.id);
         })
