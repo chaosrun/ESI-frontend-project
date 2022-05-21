@@ -79,19 +79,14 @@
 <script>
 import axios from "axios";
 
-const currentUser = JSON.parse(window.localStorage.getItem("user"));
-const token = window.localStorage.getItem("user-token");
-const headers = {
-  Authorization: "Basic " + token,
-};
-
 export default {
   data: () => {
 
     return {
       active: "home",
       LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
-      currentUser: currentUser,
+      currentUser: {},
+      headers:{},
       borrowersList: [],
     };
   },
@@ -104,7 +99,7 @@ export default {
 
       axios
         .get(`${process.env.VUE_APP_API_BASE_URL}/users/role/BORROWER`, {
-          headers
+          headers: this.headers
         })
         .then(response => {
             response.data.forEach(borrower => {
@@ -123,7 +118,12 @@ export default {
       this.$router.push({ name: 'user', params: { action: action, user_id: user.id } })
     }
   },
-  mounted() {
+  beforeMount() {
+    this.currentUser = JSON.parse(window.localStorage.getItem("user"));
+    const token = window.localStorage.getItem("user-token");
+    this.headers = {
+      Authorization: "Basic " + token,
+    };
     this.getBorrowers();
   },
   name: "BorrowersList",
