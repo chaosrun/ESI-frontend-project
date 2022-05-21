@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import BorrowersList from "../components/dashboard/BorrowersList.vue";
+import BorrowersList from "../components/Dashboard/BorrowersList.vue";
 import ViewMaterials from "../components/Material/ViewMaterials.vue";
 import LoanRequestList from "../components/Request/LoanRequestList.vue";
 
