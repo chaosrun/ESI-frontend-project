@@ -29,7 +29,7 @@ export default {
     RetrieveUser,
   },
   methods: { },
-  mounted() {
+  beforeMount() {
     const currentUser = JSON.parse(window.localStorage.getItem("user"));
     this.id = currentUser.id;
   }

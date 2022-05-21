@@ -126,7 +126,7 @@ export default {
     LoanRequestList,
   },
   methods: {},
-  mounted() {
+  beforeMount() {
     const currentUser = JSON.parse(window.localStorage.getItem("user"));
     this.library = currentUser.library;
     this.username = window.localStorage.getItem("username");

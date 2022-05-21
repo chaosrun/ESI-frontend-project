@@ -167,7 +167,7 @@ export default {
       const loading = this.$vs.loading();
 
       axios
-        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, this.headers)
+        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {headers: this.headers})
         .then((response) => {
           this.profileUser = response.data;
           this.nameInput = this.profileUser.name;
@@ -183,7 +183,7 @@ export default {
     },
     updateUser(id) {
       axios
-        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, this.headers)
+        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {headers: this.headers})
         .then((response) => {
           const userDetails = response.data;
           userDetails["name"] = this.nameInput;
@@ -192,7 +192,7 @@ export default {
 
           axios
             .put(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`,
-              userDetails, this.headers)
+              userDetails, {headers: this.headers})
             .then(() => {
               this.$vs.notification({
                 color: "success",

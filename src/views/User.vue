@@ -40,7 +40,7 @@ export default {
     DeleteUser,
   },
   methods: {},
-  mounted () {
+  beforeMount () {
     const currentUser = JSON.parse(window.localStorage.getItem("user"));
     this.currentUser = currentUser;
     this.id = currentUser?.id || this.id

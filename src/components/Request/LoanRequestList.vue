@@ -176,7 +176,7 @@ export default {
       this.getAll();
     },
   },
-  mounted() {
+  beforeMount() {
     const user = window.localStorage.getItem("user");
     const userInformation = JSON.parse(user);
     this.currentUserRole = userInformation.role;

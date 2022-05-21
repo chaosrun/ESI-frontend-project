@@ -76,7 +76,7 @@ export default {
       const loading = this.$vs.loading();
 
       axios
-        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, this.headers)
+        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {headers: this.headers})
         .then((response) => {
           this.userProfile = response.data;
         })
@@ -87,7 +87,7 @@ export default {
       loading.close();
     },
   },
-  mounted() {
+  beforeMount() {
     this.currentUser = JSON.parse(window.localStorage.getItem("user"));
     const token = window.localStorage.getItem("user-token");
     this.headers = {

@@ -182,7 +182,7 @@ export default {
       //   }
     },
   },
-  mounted() {
+  beforeMount() {
     this.get(this.$route.params.id);
     const user = window.localStorage.getItem("user");
     const userInformation = JSON.parse(user);

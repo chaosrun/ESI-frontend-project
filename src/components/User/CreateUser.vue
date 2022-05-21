@@ -112,7 +112,7 @@ export default {
       };
 
       axios
-        .post(`${process.env.VUE_APP_API_BASE_URL}/user`, userDetails, this.headers)
+        .post(`${process.env.VUE_APP_API_BASE_URL}/user`, userDetails, {headers: this.headers})
         .then((response) => {
 
           this.$vs.notification({
@@ -145,7 +145,7 @@ export default {
       this.$router.push({ name: "borrowers" }).catch(() => {});
     },
   },
-  mounted () {
+  beforeMount () {
     this.currentUser = JSON.parse(window.localStorage.getItem("user"));
     const token = window.localStorage.getItem("user-token");
     this.headers = {

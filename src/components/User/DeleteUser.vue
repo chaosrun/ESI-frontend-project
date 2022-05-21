@@ -28,7 +28,7 @@ export default {
       const loading = this.$vs.loading();
   
       axios
-        .delete(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, this.headers)
+        .delete(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, { headers: this.headers })
         .then(() => {
             this.$router.push({ name: 'borrowers' })
         })
@@ -42,7 +42,7 @@ export default {
       this.$router.push({ name: 'borrowers' })
     }
   },
-  mounted () {
+  beforeMount () {
     const token = window.localStorage.getItem("user-token");
     this.headers = {
       Authorization: "Basic " + token,

@@ -80,7 +80,7 @@ export default {
       }
     },
   },
-  mounted () {
+  beforeMount () {
     const currentUser = JSON.parse(window.localStorage.getItem('user'));
     this.user = currentUser;
     this.menuToggle = this.menuOpen;
