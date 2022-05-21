@@ -20,18 +20,19 @@ import RetrieveUser from "../components/User/RetrieveUser.vue";
 export default {
   name: 'UserDashboard',
   data: function() {
-    const currentUser = JSON.parse(window.localStorage.getItem("user"));
-
     return {
       username: window.localStorage.getItem('username'),
-      id: currentUser.id
+      id: ''
     }
   },
   components: {
     RetrieveUser,
   },
   methods: { },
-  mounted() {}
+  mounted() {
+    const currentUser = JSON.parse(window.localStorage.getItem("user"));
+    this.id = currentUser.id;
+  }
 }
 </script>
 

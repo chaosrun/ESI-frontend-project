@@ -147,25 +147,19 @@
 
 <script>
 import axios from "axios";
-
-const currentUser = JSON.parse(window.localStorage.getItem("user"));
-const token = window.localStorage.getItem("user-token");
-const headers = {
-  Authorization: "Basic " + token,
-};
-
 export default {
   name: "UpdateUser",
   props: ["user_id"],
   data() {
     return {
       LIBRARIAN_ROLE: process.env.VUE_APP_LIBRARIAN_ROLE,
-      currentUser: currentUser,
+      currentUser: {},
       profileUser: {},
       nameInput: "",
       emailInput: "",
       homeLibraryInput: "",
-      passwordInput: ""
+      passwordInput: "",
+      headers: {},
     };
   },
   methods: {
@@ -173,9 +167,7 @@ export default {
       const loading = this.$vs.loading();
 
       axios
-        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {
-          headers,
-        })
+        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, this.headers)
         .then((response) => {
           this.profileUser = response.data;
           this.nameInput = this.profileUser.name;
@@ -191,9 +183,7 @@ export default {
     },
     updateUser(id) {
       axios
-        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, {
-          headers,
-        })
+        .get(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`, this.headers)
         .then((response) => {
           const userDetails = response.data;
           userDetails["name"] = this.nameInput;
@@ -202,9 +192,7 @@ export default {
 
           axios
             .put(`${process.env.VUE_APP_API_BASE_URL}/user/${id}`,
-              userDetails, {
-              headers
-            })
+              userDetails, this.headers)
             .then(() => {
               this.$vs.notification({
                 color: "success",
@@ -245,6 +233,12 @@ export default {
     },
   },
   beforeMount() {
+    const currentUser = JSON.parse(window.localStorage.getItem("user"));
+    const token = window.localStorage.getItem("user-token");
+    this.headers = {
+      Authorization: "Basic " + token,
+    };
+    this.currentUser = currentUser;
     this.loadUser(this.user_id);
   },
 };

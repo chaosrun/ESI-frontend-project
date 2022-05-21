@@ -90,44 +90,36 @@
 <script>
 import axios from "axios";
 
-const currentUser = JSON.parse(window.localStorage.getItem("user"));
-const token = window.localStorage.getItem("user-token");
-const headers = {
-  Authorization: "Basic " + token,
-};
-const password = Math.random().toString(36).slice(2, 10);
-
 export default {
   name: "CreateUser",
   data() {
     return {
-      currentUser: currentUser,
+      currentUser: {},
       nameInput: "",
       emailInput: "",
-      password: password,
+      password: '',
+      headers: {}
     };
   },
   methods: {
     createUser() {
       const userDetails = {
-        homeLibrary: currentUser.library,
+        homeLibrary: this.currentUser.library,
         email: this.emailInput,
         name: this.nameInput,
-        password: password,
+        password: this.password,
         role: "BORROWER",
       };
 
       axios
-        .post(`${process.env.VUE_APP_API_BASE_URL}/user`, userDetails, {
-          headers,
-        })
+        .post(`${process.env.VUE_APP_API_BASE_URL}/user`, userDetails, this.headers)
         .then((response) => {
 
           this.$vs.notification({
             color: "primary",
             position: "top-center",
             title: "Borrower Account Created!",
-            text: `Username: <strong>${response.data.email}</strong><br/>Password: <strong>${password}</strong>`,
+            text: `Username: <strong>${response.data.email}</strong><br/>Password: <strong>${this.password}</strong>`,
             time: 10000,
           });
 
@@ -153,5 +145,13 @@ export default {
       this.$router.push({ name: "borrowers" }).catch(() => {});
     },
   },
+  mounted () {
+    this.currentUser = JSON.parse(window.localStorage.getItem("user"));
+    const token = window.localStorage.getItem("user-token");
+    this.headers = {
+      Authorization: "Basic " + token,
+    };
+    this.password = Math.random().toString(36).slice(2, 10);
+  }
 };
 </script>
