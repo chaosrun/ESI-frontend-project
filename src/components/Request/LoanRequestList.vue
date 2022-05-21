@@ -91,7 +91,6 @@ export default {
   },
   methods: {
     getUserID() {
-      console.log(auth.userID());
       return auth.userID();
     },
     getAllByUser(id) {
@@ -189,7 +188,7 @@ export default {
       this.currentUserRole === process.env.VUE_APP_LIBRARIAN_ROLE &&
       this.user_id
     ) {
-      this.getAllByUser(this.getUserID());
+      this.getAllByUser(this.user_id);
     } else if (this.currentUserRole === process.env.VUE_APP_LIBRARIAN_ROLE) {
       this.getAll();
     } else {
